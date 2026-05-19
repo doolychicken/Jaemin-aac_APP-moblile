@@ -59,6 +59,7 @@ let guardianDateSetup = false;
 const dateSelection = { year: null, month: null, day: null, weekday: null, weather: null };
 let dateCardFocus = "year";
 let dateActivityMode = "";
+const datePuzzleBlankSelection = { year: null, month: null, day: null, weekday: null, weather: null };
 
 // ── TTS ──────────────────────────────────────────────────────────────────────
 let preferredKoVoice = null;
@@ -993,7 +994,8 @@ function renderDateHome() {
 
     const modes = [
       { mode: "cards", title: "버전 1", sub: "빈칸을 누르고 카드를 골라 붙여요." },
-      { mode: "puzzle", title: "버전 2", sub: "숫자, 요일, 날씨 카드를 끌어 빈칸에 맞춰요." },
+      { mode: "puzzle", title: "버전 2", sub: "오늘 날짜가 보이고, 카드를 끌어 맞춰요." },
+      { mode: "blankPuzzle", title: "버전 3", sub: "년 월 일 요일 날씨 빈칸을 직접 채워요." },
     ];
 
     modes.forEach((item) => {
@@ -1018,7 +1020,7 @@ function renderDateHome() {
     return;
   }
 
-  if (dateActivityMode === "puzzle") {
+  if (dateActivityMode === "puzzle" || dateActivityMode === "blankPuzzle") {
     renderDatePuzzle();
     return;
   }
@@ -1190,12 +1192,25 @@ function renderDatePuzzle() {
 
   const weatherItems = DATA.screens.dateWeatherPicker.items || [];
   const weekdayChoices = ["월요일", "화요일", "수요일", "목요일", "금요일", "토요일", "일요일"];
-  const puzzle = {
-    year: dateSelection.year,
-    month: dateSelection.month,
-    day: dateSelection.day,
-    weekday: dateSelection.weekday,
+  const isBlankPuzzle = dateActivityMode === "blankPuzzle";
+  const answer = {
+    year: new Date().getFullYear(),
+    month: new Date().getMonth() + 1,
+    day: new Date().getDate(),
+    weekday: ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"][new Date().getDay()],
     weather: dateSelection.weather
+  };
+  const puzzle = isBlankPuzzle ? datePuzzleBlankSelection : dateSelection;
+  const nextDateFocus = { year: "month", month: "day", day: "weekday", weekday: "weather", weather: "weather" };
+
+  function displayValue(kind) {
+    const value = puzzle[kind];
+    if (value) return value;
+    return isBlankPuzzle ? "" : "?";
+  }
+
+  function unitOnlyLabel(kind, unit) {
+    return isBlankPuzzle && !puzzle[kind] ? unit : "";
   };
 
   function showPuzzleSuccess(targetEl, label) {
@@ -1217,11 +1232,15 @@ function renderDatePuzzle() {
   }
 
   function setDropValue(kind, value, targetEl) {
-    if (kind === "year") dateSelection.year = Number(value);
-    if (kind === "month") dateSelection.month = Number(value);
-    if (kind === "day") dateSelection.day = Number(value);
-    if (kind === "weekday") dateSelection.weekday = value;
+    const targetSelection = isBlankPuzzle ? datePuzzleBlankSelection : dateSelection;
+    if (kind === "year") targetSelection.year = Number(value);
+    if (kind === "month") targetSelection.month = Number(value);
+    if (kind === "day") targetSelection.day = Number(value);
+    if (kind === "weekday") targetSelection.weekday = value;
+    if (kind === "weather") targetSelection.weather = value;
+    if (isBlankPuzzle && kind !== "weather") dateSelection[kind] = targetSelection[kind];
     if (kind === "weather") dateSelection.weather = value;
+    dateCardFocus = nextDateFocus[kind] || "weather";
     showPuzzleSuccess(targetEl, value);
   }
 
@@ -1272,12 +1291,12 @@ function renderDatePuzzle() {
 
     const main = document.createElement("span");
     main.className = "date-puzzle-slot-main";
-    main.textContent = value || "?";
+    main.textContent = value || unitOnlyLabel(kind, unit) || "?";
     slot.appendChild(main);
 
     const suffix = document.createElement("span");
     suffix.className = "date-puzzle-slot-unit";
-    suffix.textContent = unit;
+    suffix.textContent = value ? unit : "";
     slot.appendChild(suffix);
     return slot;
   }
@@ -1364,11 +1383,11 @@ function renderDatePuzzle() {
 
   const board = document.createElement("section");
   board.className = "date-puzzle-board";
-  board.appendChild(makeDropSlot("year", "년", puzzle.year, { wide: true }));
-  board.appendChild(makeDropSlot("month", "월", puzzle.month));
-  board.appendChild(makeDropSlot("day", "일", puzzle.day));
-  board.appendChild(makeDropSlot("weekday", "요일", puzzle.weekday?.replace("요일", "")));
-  board.appendChild(makeDropSlot("weather", "날씨", puzzle.weather, { wide: true, weather: true }));
+  board.appendChild(makeDropSlot("year", "년", displayValue("year"), { wide: true }));
+  board.appendChild(makeDropSlot("month", "월", displayValue("month")));
+  board.appendChild(makeDropSlot("day", "일", displayValue("day")));
+  board.appendChild(makeDropSlot("weekday", "요일", puzzle.weekday ? puzzle.weekday.replace("요일", "") : unitOnlyLabel("weekday", "요일")));
+  board.appendChild(makeDropSlot("weather", "날씨", displayValue("weather"), { wide: true, weather: true }));
   gridEl.appendChild(board);
 
   const tray = document.createElement("section");
@@ -1393,15 +1412,15 @@ function renderDatePuzzle() {
   }
 
   if (dateCardFocus === "year") {
-    twoNumberChoices(Number(dateSelection.year), 2020, 2035).forEach((year) => {
+    twoNumberChoices(Number(answer.year), 2020, 2035).forEach((year) => {
       cardGrid.appendChild(makeDragCard("year", year, String(year)));
     });
   } else if (dateCardFocus === "month") {
-    twoNumberChoices(Number(dateSelection.month), 1, 12).forEach((month) => {
+    twoNumberChoices(Number(answer.month), 1, 12).forEach((month) => {
       cardGrid.appendChild(makeDragCard("month", month, String(month)));
     });
   } else if (dateCardFocus === "day") {
-    twoNumberChoices(Number(dateSelection.day), 1, 31).forEach((day) => {
+    twoNumberChoices(Number(answer.day), 1, 31).forEach((day) => {
       cardGrid.appendChild(makeDragCard("day", day, String(day)));
     });
   } else if (dateCardFocus === "weekday") {
