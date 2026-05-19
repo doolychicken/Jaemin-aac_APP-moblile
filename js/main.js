@@ -1577,6 +1577,9 @@ function renderButtons(items, layout) {
     if ((isMain && item.image) || (isMedia && (item.image || yUrl))) {
       const isNavBtn = isMain && (item.label === "다음" || item.label === "이전");
       btn.className = isNavBtn ? "tile tile-nav" : "tile";
+      if (currentKey() === "weatherHome" || currentKey() === "dateWeatherPicker") {
+        btn.classList.add("tile--weather-choice");
+      }
       if (!isNavBtn) {
         const img = document.createElement("img");
         img.src = item.image || getThumbnail(yUrl); img.alt = item.label;
