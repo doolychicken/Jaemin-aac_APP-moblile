@@ -1187,6 +1187,1263 @@ body {
   touch-action: manipulation;
 }
 
+/* Friendly date entry screens. */
+.date-mode-select {
+  grid-template-columns: repeat(3, minmax(0, 245px)) !important;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  gap: clamp(12px, 1.8vh, 18px);
+  width: 100%;
+  max-width: 780px;
+  margin-inline: auto;
+}
+
+.date-mode-card {
+  width: min(100%, 245px);
+  max-width: 245px;
+  aspect-ratio: 1 / 1;
+  min-height: 0;
+  border: 1px solid rgba(255, 255, 255, 0.86);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.48) 100%),
+    linear-gradient(135deg, #ff78a9 0%, #ffbd72 100%);
+  color: #ffffff;
+  padding: clamp(12px, 2vh, 18px);
+  box-shadow: 0 16px 34px rgba(76, 111, 174, 0.15);
+}
+
+.date-mode-card:nth-child(3n + 2) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.76) 0%, rgba(255, 255, 255, 0.46) 100%),
+    linear-gradient(135deg, #4f8cff 0%, #11c5d8 100%);
+}
+
+.date-mode-card:nth-child(3n) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.50) 100%),
+    linear-gradient(135deg, #9f8cff 0%, #ff9ed7 100%);
+}
+
+.date-mode-icon {
+  width: min(118px, 58%);
+  aspect-ratio: 1 / 1;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.74);
+  color: #23437f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(2rem, 5vh, 3.4rem);
+  font-weight: 900;
+  text-shadow: none;
+}
+
+.date-mode-title {
+  color: #ffffff;
+  font-size: clamp(1.15rem, 2.4vh, 1.55rem);
+  line-height: 1.05;
+  text-shadow: 0 2px 10px rgba(37, 52, 86, 0.22);
+}
+
+.date-mode-sub {
+  color: rgba(255, 255, 255, 0.94);
+  font-size: clamp(0.78rem, 1.55vh, 0.95rem);
+  line-height: 1.18;
+  text-shadow: 0 2px 8px rgba(37, 52, 86, 0.18);
+}
+
+.date-board {
+  align-content: center;
+  justify-content: center;
+  gap: clamp(12px, 1.8vh, 18px);
+}
+
+.date-card-board {
+  grid-template-columns: repeat(5, minmax(0, 150px)) !important;
+  justify-content: center;
+  gap: clamp(10px, 1.6vh, 14px);
+  padding: clamp(10px, 1.8vh, 16px);
+}
+
+.date-field {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 6px;
+  min-width: 0;
+}
+
+.date-field-label {
+  min-height: 32px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.82);
+  color: #31528f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(1rem, 2vh, 1.25rem);
+  font-weight: 900;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92);
+}
+
+.date-field .date-slot {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  min-height: 0;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.date-field .date-slot-main {
+  font-size: clamp(2.3rem, 6vh, 4rem);
+  line-height: 1;
+}
+
+.date-field--weekday .date-slot-main,
+.date-field--weather .date-slot-main {
+  font-size: clamp(1.25rem, 2.7vh, 1.65rem);
+}
+
+.date-field--weather img {
+  width: min(92px, 82%);
+  height: min(72px, 42%);
+  object-fit: contain;
+}
+
+.date-option-panel {
+  width: min(100%, 900px);
+  justify-self: center;
+}
+
+.date-option-title {
+  font-size: clamp(1.05rem, 2vh, 1.35rem);
+  font-weight: 900;
+  text-align: center;
+}
+
+.date-option-grid {
+  justify-content: center;
+}
+
+.date-option-card {
+  font-size: clamp(1.5rem, 3.5vh, 2.35rem);
+  font-weight: 900;
+}
+
+.date-option-card span {
+  line-height: 1.05;
+}
+
+@media (max-width: 900px) {
+  .date-mode-select {
+    grid-template-columns: repeat(2, minmax(0, 245px)) !important;
+    max-width: 520px;
+  }
+
+  .date-card-board {
+    grid-template-columns: repeat(3, minmax(0, 150px)) !important;
+  }
+}
+
+/* Final override: version 4 uses the same large card language as version 5. */
+.date-action-row--reset {
+  grid-template-columns: 1fr 1fr 1.2fr !important;
+  width: min(100%, 1080px) !important;
+  justify-self: center !important;
+}
+
+.date-step .date-step-focus-card,
+.date-step .date-step-date-board,
+.date-step .date-step-final-board {
+  width: min(100%, 1080px) !important;
+  border: 2px solid rgba(255, 255, 255, 0.92) !important;
+  border-radius: 14px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.62)),
+    linear-gradient(135deg, rgba(255, 120, 169, 0.1), rgba(17, 197, 216, 0.14)),
+    #f8fbff !important;
+  box-shadow: 0 22px 54px rgba(76, 111, 174, 0.18) !important;
+  padding: clamp(14px, 2.2vh, 22px) !important;
+  justify-content: center !important;
+  align-content: center !important;
+}
+
+.date-step .date-step-focus-card {
+  min-height: clamp(260px, 36vh, 380px) !important;
+}
+
+.date-step .date-step-date-board {
+  grid-template-columns: repeat(3, minmax(0, 170px)) !important;
+}
+
+.date-step .date-step-final-board {
+  grid-template-columns: repeat(5, minmax(0, 150px)) !important;
+}
+
+.date-step .date-puzzle-slot::before {
+  display: none !important;
+}
+
+.date-step .date-puzzle-slot {
+  width: min(100%, 170px) !important;
+  max-width: 170px !important;
+  aspect-ratio: 1 / 1 !important;
+  min-height: 0 !important;
+  border: 3px dashed rgba(49, 82, 143, 0.34) !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.48) 100%),
+    linear-gradient(135deg, #4f8cff 0%, #11c5d8 100%) !important;
+  color: #ffffff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  text-shadow: 0 2px 10px rgba(37, 52, 86, 0.24) !important;
+  overflow: hidden !important;
+}
+
+.date-step .date-step-focus-card .date-puzzle-slot {
+  width: min(82vw, 310px) !important;
+  max-width: 310px !important;
+}
+
+.date-step--year .date-step-focus-card .date-puzzle-slot {
+  width: min(82vw, 360px) !important;
+  max-width: 360px !important;
+  aspect-ratio: 1.75 / 1 !important;
+}
+
+.date-step .date-puzzle-slot-main {
+  color: #ffffff !important;
+  font-size: clamp(2.4rem, 5.8vw, 4.1rem) !important;
+  line-height: 1 !important;
+}
+
+.date-step--year .date-puzzle-slot-main {
+  font-size: clamp(3.7rem, 8.8vh, 6.2rem) !important;
+}
+
+.date-step .date-puzzle-tray {
+  width: min(100%, 1080px) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.88) !important;
+  border-radius: 8px !important;
+  background: rgba(255, 255, 255, 0.78) !important;
+  box-shadow: 0 18px 44px rgba(76, 111, 174, 0.13) !important;
+  padding: clamp(14px, 2vh, 20px) !important;
+}
+
+.date-step .date-puzzle-card-grid {
+  grid-template-columns: repeat(auto-fit, minmax(132px, 170px)) !important;
+  justify-content: center !important;
+  gap: clamp(12px, 1.8vh, 18px) !important;
+}
+
+.date-step .date-drag-card {
+  width: min(100%, 170px) !important;
+  max-width: 170px !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 8px !important;
+  font-size: clamp(2rem, 4.4vh, 3rem) !important;
+}
+
+.date-step .date-drag-card--weather {
+  font-size: clamp(1rem, 2vh, 1.3rem) !important;
+}
+
+.date-step .date-drag-card--weather img {
+  width: min(110px, 84%) !important;
+  height: min(84px, 50%) !important;
+}
+
+@media (max-width: 760px) {
+  .date-action-row--reset {
+    grid-template-columns: 1fr !important;
+  }
+
+  .date-step .date-step-date-board,
+  .date-step .date-step-final-board {
+    grid-template-columns: repeat(2, minmax(0, 150px)) !important;
+  }
+}
+
+/* Version 4 visual match: keep the step flow, style it like version 5. */
+.date-action-row--reset {
+  grid-template-columns: 1fr 1fr 1.2fr !important;
+  width: min(100%, 1080px);
+  justify-self: center;
+}
+
+.date-step {
+  gap: clamp(12px, 1.8vh, 18px) !important;
+  align-content: center !important;
+  justify-items: center !important;
+}
+
+.date-step .date-step-focus-card,
+.date-step .date-step-date-board,
+.date-step .date-step-final-board {
+  width: min(100%, 1080px) !important;
+  border: 2px solid rgba(255, 255, 255, 0.92) !important;
+  border-radius: 14px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.62)),
+    linear-gradient(135deg, rgba(255, 120, 169, 0.1), rgba(17, 197, 216, 0.14)),
+    #f8fbff !important;
+  box-shadow: 0 22px 54px rgba(76, 111, 174, 0.18) !important;
+  padding: clamp(14px, 2.2vh, 22px) !important;
+  justify-content: center !important;
+  align-content: center !important;
+}
+
+.date-step .date-step-focus-card {
+  min-height: clamp(260px, 36vh, 380px) !important;
+}
+
+.date-step .date-step-date-board {
+  grid-template-columns: repeat(3, minmax(0, 170px)) !important;
+}
+
+.date-step .date-step-final-board {
+  grid-template-columns: repeat(5, minmax(0, 150px)) !important;
+}
+
+.date-step .date-puzzle-slot::before {
+  display: none !important;
+}
+
+.date-step .date-puzzle-slot {
+  width: min(100%, 170px) !important;
+  max-width: 170px !important;
+  aspect-ratio: 1 / 1 !important;
+  min-height: 0 !important;
+  border: 3px dashed rgba(49, 82, 143, 0.34) !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.48) 100%),
+    linear-gradient(135deg, #4f8cff 0%, #11c5d8 100%) !important;
+  color: #ffffff !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  text-shadow: 0 2px 10px rgba(37, 52, 86, 0.24) !important;
+  overflow: hidden !important;
+}
+
+.date-step .date-step-focus-card .date-puzzle-slot {
+  width: min(82vw, 310px) !important;
+  max-width: 310px !important;
+}
+
+.date-step--year .date-step-focus-card .date-puzzle-slot {
+  width: min(82vw, 360px) !important;
+  max-width: 360px !important;
+  aspect-ratio: 1.75 / 1 !important;
+}
+
+.date-step .date-puzzle-slot.is-active,
+.date-step .date-puzzle-slot.is-ready {
+  border-style: solid !important;
+  border-color: #ffd24a !important;
+  box-shadow:
+    0 0 0 5px rgba(255, 210, 74, 0.28),
+    0 16px 34px rgba(76, 111, 174, 0.16) !important;
+}
+
+.date-step .date-puzzle-slot-main {
+  color: #ffffff !important;
+  font-size: clamp(2.4rem, 5.8vw, 4.1rem) !important;
+  line-height: 1 !important;
+}
+
+.date-step--year .date-puzzle-slot-main {
+  font-size: clamp(3.7rem, 8.8vh, 6.2rem) !important;
+}
+
+.date-step .date-puzzle-slot--weather {
+  gap: 6px !important;
+}
+
+.date-step .date-puzzle-slot--weather img {
+  width: min(110px, 70%) !important;
+  height: min(84px, 46%) !important;
+  object-fit: contain;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.date-step .date-puzzle-tray {
+  width: min(100%, 1080px) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.88);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 18px 44px rgba(76, 111, 174, 0.13);
+  padding: clamp(14px, 2vh, 20px) !important;
+}
+
+.date-step .date-puzzle-card-grid {
+  grid-template-columns: repeat(auto-fit, minmax(132px, 170px)) !important;
+  justify-content: center !important;
+  gap: clamp(12px, 1.8vh, 18px) !important;
+}
+
+.date-step .date-drag-card {
+  width: min(100%, 170px) !important;
+  max-width: 170px !important;
+  aspect-ratio: 1 / 1 !important;
+  border-radius: 8px !important;
+  font-size: clamp(2rem, 4.4vh, 3rem) !important;
+}
+
+.date-step .date-drag-card--weather {
+  font-size: clamp(1rem, 2vh, 1.3rem) !important;
+}
+
+.date-step .date-drag-card--weather img {
+  width: min(110px, 84%) !important;
+  height: min(84px, 50%) !important;
+}
+
+@media (max-width: 760px) {
+  .date-action-row--reset {
+    grid-template-columns: 1fr;
+  }
+
+  .date-step .date-step-date-board,
+  .date-step .date-step-final-board {
+    grid-template-columns: repeat(2, minmax(0, 150px)) !important;
+  }
+}
+
+/* Version 5 clean board: use the photo as structure only, with straight drag/drop cards. */
+.date-board-fill {
+  grid-template-rows: minmax(300px, 1fr) auto auto !important;
+  align-content: center;
+}
+
+.date-board-fill-board {
+  display: grid !important;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
+  gap: clamp(10px, 1.7vh, 16px);
+  padding: clamp(12px, 2vh, 18px);
+  max-height: 430px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.62)),
+    linear-gradient(135deg, rgba(255, 120, 169, 0.1), rgba(17, 197, 216, 0.14)),
+    #f8fbff !important;
+}
+
+.date-board-fill-pair {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(74px, 0.62fr);
+  gap: clamp(8px, 1.4vh, 12px);
+  min-width: 0;
+  min-height: 0;
+}
+
+.date-board-fill-pair--year {
+  grid-column: 1 / span 2;
+  grid-template-columns: minmax(0, 2fr) minmax(94px, 0.7fr);
+}
+
+.date-board-fill-pair--month {
+  grid-column: 3;
+}
+
+.date-board-fill-pair--day {
+  grid-column: 1;
+}
+
+.date-board-fill-pair--weekday {
+  grid-column: 2;
+}
+
+.date-board-fill-pair--weather {
+  grid-column: 3;
+}
+
+.date-board-fill-slot,
+.date-board-fill-fixed,
+.date-board-fill-slot--year,
+.date-board-fill-fixed--year,
+.date-board-fill-slot--month,
+.date-board-fill-fixed--month,
+.date-board-fill-slot--day,
+.date-board-fill-fixed--day,
+.date-board-fill-slot--weekday,
+.date-board-fill-fixed--weekday,
+.date-board-fill-slot--weather,
+.date-board-fill-fixed--weather {
+  position: static !important;
+  inset: auto !important;
+  left: auto !important;
+  top: auto !important;
+  width: auto !important;
+  height: auto !important;
+  transform: none !important;
+}
+
+.date-board-fill-slot,
+.date-board-fill-fixed {
+  min-width: 0;
+  min-height: 0;
+  border-radius: 8px !important;
+}
+
+.date-board-fill-slot {
+  border: 3px dashed rgba(49, 82, 143, 0.34) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.48) 100%),
+    linear-gradient(135deg, #4f8cff 0%, #11c5d8 100%) !important;
+  color: #ffffff !important;
+  text-shadow: 0 2px 10px rgba(37, 52, 86, 0.24);
+}
+
+.date-board-fill-slot.is-active,
+.date-board-fill-slot.is-ready {
+  border-style: solid !important;
+  border-color: #ffd24a !important;
+  box-shadow:
+    0 0 0 5px rgba(255, 210, 74, 0.28),
+    0 16px 34px rgba(76, 111, 174, 0.16) !important;
+}
+
+.date-board-fill-slot.is-filled {
+  border-style: solid !important;
+}
+
+.date-board-fill-fixed {
+  border: 1px solid rgba(255, 255, 255, 0.86) !important;
+  background: rgba(255, 255, 255, 0.86) !important;
+  color: #047857 !important;
+  box-shadow: 0 16px 34px rgba(76, 111, 174, 0.13) !important;
+  font-size: clamp(1.35rem, 4vh, 3.3rem) !important;
+  text-shadow: none;
+}
+
+.date-board-fill-slot--year .date-board-fill-main {
+  color: #ffffff !important;
+  font-size: clamp(3rem, 8vh, 5.8rem) !important;
+}
+
+.date-board-fill-main {
+  font-size: clamp(2.2rem, 6vh, 4.4rem) !important;
+}
+
+.date-board-fill-slot--weekday .date-board-fill-main,
+.date-board-fill-slot--weather .date-board-fill-main {
+  font-size: clamp(1.3rem, 3.2vh, 2rem) !important;
+}
+
+.date-board-fill-card.is-dragging,
+.date-board-fill-card--ghost {
+  opacity: 0.9;
+  transform: scale(1.04);
+}
+
+@media (max-width: 900px), (max-height: 700px) {
+  .date-board-fill-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    max-height: 440px !important;
+  }
+
+  .date-board-fill-pair--year,
+  .date-board-fill-pair--month,
+  .date-board-fill-pair--day,
+  .date-board-fill-pair--weekday,
+  .date-board-fill-pair--weather {
+    grid-column: auto;
+  }
+
+  .date-board-fill-pair--year {
+    grid-column: 1 / span 2;
+  }
+}
+
+/* Date version 5: physical board style, with large empty slots to fill. */
+.date-board-fill {
+  display: grid;
+  grid-template-rows: minmax(300px, 1fr) auto auto;
+  gap: clamp(8px, 1.3vh, 14px);
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow: hidden;
+  width: 100%;
+}
+
+.date-board-fill-board {
+  position: relative;
+  justify-self: center;
+  align-self: stretch;
+  width: min(100%, 920px);
+  height: 100%;
+  max-height: 440px;
+  min-height: 300px;
+  border: 2px solid rgba(255, 255, 255, 0.92);
+  border-radius: 14px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.76), rgba(255, 255, 255, 0.54)),
+    repeating-linear-gradient(0deg, rgba(148, 163, 184, 0.16) 0 1px, transparent 1px 92px),
+    repeating-linear-gradient(90deg, rgba(148, 163, 184, 0.13) 0 1px, transparent 1px 138px),
+    #f8fafc;
+  box-shadow: 0 22px 54px rgba(76, 111, 174, 0.18);
+  overflow: hidden;
+}
+
+.date-board-fill-slot,
+.date-board-fill-fixed {
+  position: absolute;
+  border-radius: 8px;
+  border: 2px solid rgba(100, 116, 139, 0.44);
+  background: rgba(255, 255, 255, 0.9);
+  box-shadow: 0 12px 28px rgba(15, 23, 42, 0.14);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(8px, 1.6vh, 14px);
+  font-weight: 900;
+  line-height: 1;
+}
+
+.date-board-fill-slot {
+  color: #0f172a;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.date-board-fill-fixed {
+  color: #047857;
+  pointer-events: none;
+}
+
+.date-board-fill-main {
+  color: inherit;
+  font-size: clamp(2.4rem, 6.4vh, 4.9rem);
+}
+
+.date-board-fill-slot--year .date-board-fill-main {
+  color: #b91c1c;
+  font-size: clamp(3rem, 8vh, 6.1rem);
+}
+
+.date-board-fill-slot--weekday .date-board-fill-main,
+.date-board-fill-slot--weather .date-board-fill-main {
+  font-size: clamp(1.25rem, 3vh, 2.15rem);
+}
+
+.date-board-fill-slot.is-active {
+  border-color: #ffd24a;
+  box-shadow:
+    0 0 0 5px rgba(255, 210, 74, 0.34),
+    0 18px 44px rgba(76, 111, 174, 0.2);
+}
+
+.date-board-fill-slot.is-filled {
+  background: rgba(255, 255, 255, 0.96);
+}
+
+.date-board-fill-slot--weather {
+  flex-direction: column;
+  gap: 6px;
+}
+
+.date-board-fill-slot--weather img {
+  width: min(92px, 72%);
+  height: min(74px, 48%);
+  object-fit: contain;
+  border-radius: 8px;
+  background: rgba(231, 244, 255, 0.92);
+}
+
+.date-board-fill-slot--year {
+  left: 27%;
+  top: 8%;
+  width: 38%;
+  height: 22%;
+}
+
+.date-board-fill-fixed--year {
+  left: 69%;
+  top: 7%;
+  width: 14%;
+  height: 23%;
+  font-size: clamp(2rem, 5.6vh, 4rem);
+}
+
+.date-board-fill-slot--month {
+  left: 9%;
+  top: 37%;
+  width: 15%;
+  height: 25%;
+  transform: rotate(-12deg);
+}
+
+.date-board-fill-fixed--month {
+  left: 31%;
+  top: 35%;
+  width: 15%;
+  height: 25%;
+  font-size: clamp(2rem, 5.4vh, 3.8rem);
+}
+
+.date-board-fill-slot--day {
+  left: 60%;
+  top: 33%;
+  width: 15%;
+  height: 25%;
+}
+
+.date-board-fill-fixed--day {
+  left: 78%;
+  top: 35%;
+  width: 15%;
+  height: 25%;
+  transform: rotate(8deg);
+  font-size: clamp(2rem, 5.4vh, 3.8rem);
+}
+
+.date-board-fill-slot--weekday {
+  left: 27%;
+  top: 72%;
+  width: 18%;
+  height: 22%;
+  transform: rotate(4deg);
+}
+
+.date-board-fill-fixed--weekday {
+  left: 47%;
+  top: 72%;
+  width: 17%;
+  height: 22%;
+  font-size: clamp(1.45rem, 4vh, 2.8rem);
+}
+
+.date-board-fill-slot--weather {
+  left: 63%;
+  top: 72%;
+  width: 17%;
+  height: 22%;
+  transform: rotate(-4deg);
+}
+
+.date-board-fill-fixed--weather {
+  left: 81%;
+  top: 70%;
+  width: 16%;
+  height: 22%;
+  font-size: clamp(1.25rem, 3.4vh, 2.35rem);
+}
+
+.date-board-fill-tray {
+  justify-self: center;
+  width: min(100%, 920px);
+  border: 1.5px solid rgba(255, 255, 255, 0.88);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.78);
+  box-shadow: 0 18px 44px rgba(76, 111, 174, 0.13);
+  padding: clamp(10px, 1.6vh, 14px);
+  overflow: hidden;
+}
+
+.date-board-fill-title {
+  color: #31528f;
+  font-size: clamp(1rem, 1.9vh, 1.3rem);
+  font-weight: 900;
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.date-board-fill-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(108px, 142px));
+  justify-content: center;
+  gap: clamp(8px, 1.3vh, 12px);
+}
+
+.date-board-fill-card {
+  width: min(100%, 142px);
+  aspect-ratio: 1 / 1;
+  border: 1px solid rgba(255, 255, 255, 0.86);
+  border-radius: 8px;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.48) 100%),
+    linear-gradient(135deg, #4f8cff 0%, #11c5d8 100%);
+  color: #ffffff;
+  box-shadow: 0 16px 34px rgba(76, 111, 174, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px;
+  font-size: clamp(1.7rem, 3.8vh, 2.5rem);
+  font-weight: 900;
+  text-shadow: 0 2px 10px rgba(37, 52, 86, 0.22);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.date-board-fill-card:nth-child(3n + 1) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.48) 100%),
+    linear-gradient(135deg, #ff78a9 0%, #ffbd72 100%);
+}
+
+.date-board-fill-card:nth-child(3n) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.5) 100%),
+    linear-gradient(135deg, #9f8cff 0%, #ff9ed7 100%);
+}
+
+.date-board-fill-card--image {
+  font-size: clamp(0.85rem, 1.7vh, 1.05rem);
+}
+
+.date-board-fill-card img {
+  width: min(92px, 82%);
+  height: min(72px, 48%);
+  object-fit: contain;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.74);
+}
+
+@media (max-width: 760px), (max-height: 680px) {
+  .date-board-fill {
+    grid-template-rows: minmax(260px, 1fr) auto auto;
+  }
+
+  .date-board-fill-board {
+    min-height: 260px;
+    max-height: 380px;
+  }
+
+  .date-board-fill-cards {
+    grid-template-columns: repeat(auto-fit, minmax(88px, 112px));
+  }
+
+  .date-board-fill-card {
+    width: min(100%, 112px);
+    font-size: clamp(1.35rem, 3.5vh, 2rem);
+  }
+}
+
+/* Keep version 5 straight and card-like. This wins over the earlier physical-board sketch. */
+.date-board-fill-board {
+  --date-board-square: clamp(110px, 12.2vw, 132px);
+  --date-board-year: clamp(220px, 23vw, 252px);
+  display: grid !important;
+  grid-template-columns: var(--date-board-year) repeat(5, var(--date-board-square)) !important;
+  grid-template-rows: repeat(2, var(--date-board-square)) !important;
+  gap: clamp(12px, 1.9vh, 18px) !important;
+  padding: clamp(14px, 2.2vh, 22px) !important;
+  justify-content: center !important;
+  align-content: center !important;
+  align-self: center !important;
+  width: min(100%, 1080px) !important;
+  height: auto !important;
+  min-height: auto !important;
+  max-height: 520px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.62)),
+    linear-gradient(135deg, rgba(255, 120, 169, 0.1), rgba(17, 197, 216, 0.14)),
+    #f8fbff !important;
+}
+
+.date-board-fill-pair {
+  display: grid !important;
+  grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  gap: clamp(10px, 1.6vh, 14px) !important;
+  min-width: 0;
+  min-height: 0;
+}
+
+.date-board-fill-pair--year {
+  grid-column: 1 / span 2 !important;
+  grid-row: 1 !important;
+  grid-template-columns: var(--date-board-year) var(--date-board-square) !important;
+}
+
+.date-board-fill-pair--month {
+  grid-column: 3 / span 2 !important;
+  grid-row: 1 !important;
+}
+
+.date-board-fill-pair--day {
+  grid-column: 5 / span 2 !important;
+  grid-row: 1 !important;
+}
+
+.date-board-fill-pair--weekday {
+  grid-column: 2 / span 2 !important;
+  grid-row: 2 !important;
+}
+
+.date-board-fill-pair--weather {
+  grid-column: 4 / span 2 !important;
+  grid-row: 2 !important;
+}
+
+.date-board-fill-slot,
+.date-board-fill-fixed,
+.date-board-fill-slot--year,
+.date-board-fill-fixed--year,
+.date-board-fill-slot--month,
+.date-board-fill-fixed--month,
+.date-board-fill-slot--day,
+.date-board-fill-fixed--day,
+.date-board-fill-slot--weekday,
+.date-board-fill-fixed--weekday,
+.date-board-fill-slot--weather,
+.date-board-fill-fixed--weather {
+  position: static !important;
+  inset: auto !important;
+  left: auto !important;
+  top: auto !important;
+  width: auto !important;
+  height: auto !important;
+  transform: none !important;
+}
+
+.date-board-fill-slot,
+.date-board-fill-fixed {
+  min-width: 0 !important;
+  min-height: 0 !important;
+  border-radius: 8px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  overflow: hidden !important;
+}
+
+.date-board-fill-slot {
+  border: 3px dashed rgba(49, 82, 143, 0.34) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.48) 100%),
+    linear-gradient(135deg, #4f8cff 0%, #11c5d8 100%) !important;
+  color: #ffffff !important;
+  text-shadow: 0 2px 10px rgba(37, 52, 86, 0.24) !important;
+}
+
+.date-board-fill-slot.is-active,
+.date-board-fill-slot.is-ready {
+  border-style: solid !important;
+  border-color: #ffd24a !important;
+  box-shadow:
+    0 0 0 5px rgba(255, 210, 74, 0.28),
+    0 16px 34px rgba(76, 111, 174, 0.16) !important;
+}
+
+.date-board-fill-slot.is-filled {
+  border-style: solid !important;
+}
+
+.date-board-fill-fixed {
+  border: 1px solid rgba(255, 255, 255, 0.86) !important;
+  background: rgba(255, 255, 255, 0.86) !important;
+  color: #047857 !important;
+  box-shadow: 0 16px 34px rgba(76, 111, 174, 0.13) !important;
+  font-size: clamp(1.5rem, 3.3vw, 2.55rem) !important;
+  text-shadow: none !important;
+}
+
+.date-board-fill-main {
+  color: #ffffff !important;
+  font-size: clamp(2.4rem, 5.8vw, 4.1rem) !important;
+  line-height: 1 !important;
+}
+
+.date-board-fill-slot--year .date-board-fill-main {
+  color: #ffffff !important;
+  font-size: clamp(3.7rem, 8.8vh, 6.2rem) !important;
+}
+
+.date-board-fill-slot--weekday .date-board-fill-main,
+.date-board-fill-slot--weather .date-board-fill-main {
+  font-size: clamp(1.45rem, 3vw, 2.25rem) !important;
+}
+
+.date-board-fill-slot--weather {
+  gap: 4px !important;
+}
+
+.date-board-fill-slot--weather img {
+  width: min(70px, 60%) !important;
+  height: min(54px, 44%) !important;
+}
+
+.date-board-fill-tray {
+  width: min(100%, 1080px) !important;
+  padding: clamp(14px, 2vh, 20px) !important;
+}
+
+.date-board-fill-cards {
+  grid-template-columns: repeat(auto-fit, minmax(132px, 170px)) !important;
+  gap: clamp(12px, 1.8vh, 18px) !important;
+}
+
+.date-board-fill-card {
+  width: min(100%, 170px) !important;
+  font-size: clamp(2rem, 4.4vh, 3rem) !important;
+}
+
+.date-board-fill-card--image {
+  font-size: clamp(1rem, 2vh, 1.3rem) !important;
+}
+
+.date-board-fill-card img {
+  width: min(110px, 84%) !important;
+  height: min(84px, 50%) !important;
+}
+
+.date-board-fill-card.is-dragging,
+.date-board-fill-card--ghost {
+  opacity: 0.9;
+  transform: scale(1.04);
+}
+
+@media (max-width: 760px) {
+  .date-board-fill-board {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    grid-template-rows: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  .date-board-fill-pair--year,
+  .date-board-fill-pair--month,
+  .date-board-fill-pair--day,
+  .date-board-fill-pair--weekday,
+  .date-board-fill-pair--weather {
+    grid-column: auto !important;
+  }
+
+  .date-board-fill-pair--year {
+    grid-column: 1 / span 2 !important;
+  }
+}
+
+/* Date activity internals: square AAC cards with fixed unit labels. */
+.date-puzzle-board,
+.date-step-summary-grid,
+.date-step-date-board,
+.date-step-final-board {
+  justify-content: center;
+  justify-items: center;
+  gap: clamp(10px, 1.6vh, 14px);
+}
+
+.date-puzzle-board,
+.date-step-final-board,
+.date-step-summary-grid--final {
+  grid-template-columns: repeat(5, minmax(0, 150px)) !important;
+}
+
+.date-step-summary-grid--three,
+.date-step-date-board {
+  grid-template-columns: repeat(3, minmax(0, 150px)) !important;
+}
+
+.date-step-focus-card {
+  align-items: center;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.date-step-focus-card .date-puzzle-slot,
+.date-step-focus-card .date-step-summary-card {
+  width: min(245px, 100%) !important;
+  max-width: 245px !important;
+  aspect-ratio: 1 / 1 !important;
+}
+
+.date-puzzle-slot,
+.date-step-summary-card {
+  position: relative;
+  width: min(100%, 150px) !important;
+  max-width: 150px !important;
+  aspect-ratio: 1 / 1 !important;
+  min-height: 0 !important;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.86) !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.48) 100%),
+    linear-gradient(135deg, #4f8cff 0%, #11c5d8 100%) !important;
+  box-shadow: 0 16px 34px rgba(76, 111, 174, 0.15) !important;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(12px, 2vh, 18px);
+}
+
+.date-puzzle-slot:nth-child(3n + 1),
+.date-step-summary-card:nth-child(3n + 1) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.48) 100%),
+    linear-gradient(135deg, #ff78a9 0%, #ffbd72 100%) !important;
+}
+
+.date-puzzle-slot:nth-child(3n),
+.date-step-summary-card:nth-child(3n) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.50) 100%),
+    linear-gradient(135deg, #9f8cff 0%, #ff9ed7 100%) !important;
+}
+
+.date-puzzle-slot::before,
+.date-step-summary-card::before {
+  content: attr(data-label);
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  min-width: 42px;
+  min-height: 30px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.78);
+  color: #31528f;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: clamp(0.92rem, 1.8vh, 1.08rem);
+  font-weight: 900;
+  line-height: 1;
+  text-shadow: none;
+}
+
+.date-puzzle-slot-main,
+.date-step-summary-main {
+  color: #ffffff !important;
+  font-size: clamp(2.5rem, 6vh, 4.4rem) !important;
+  line-height: 1;
+  text-shadow: 0 2px 10px rgba(37, 52, 86, 0.22);
+}
+
+.date-puzzle-slot-unit,
+.date-step-summary-unit {
+  display: none !important;
+}
+
+.date-puzzle-slot--weather img,
+.date-step-summary-card--weather img {
+  width: min(110px, 82%) !important;
+  height: min(88px, 48%) !important;
+  object-fit: contain;
+  margin-top: 18px;
+  background: rgba(255, 255, 255, 0.74);
+}
+
+.date-puzzle-slot--weather .date-puzzle-slot-main,
+.date-step-summary-card--weather .date-step-summary-main {
+  font-size: clamp(1.1rem, 2.2vh, 1.45rem) !important;
+}
+
+.date-puzzle-tray {
+  justify-self: center;
+  width: min(100%, 900px);
+}
+
+.date-puzzle-card-grid,
+.date-step-choice-grid {
+  justify-content: center;
+  justify-items: center;
+  gap: clamp(10px, 1.6vh, 14px);
+}
+
+.date-puzzle-card-grid--year,
+.date-puzzle-card-grid--month,
+.date-puzzle-card-grid--day,
+.date-step-choice-grid--year,
+.date-step-choice-grid--month,
+.date-step-choice-grid--day {
+  grid-template-columns: repeat(auto-fit, minmax(120px, 150px)) !important;
+}
+
+.date-puzzle-card-grid--weekday,
+.date-step-choice-grid--weekday {
+  grid-template-columns: repeat(auto-fit, minmax(92px, 118px)) !important;
+}
+
+.date-puzzle-card-grid--weather,
+.date-step-choice-grid--weather {
+  grid-template-columns: repeat(auto-fit, minmax(110px, 132px)) !important;
+}
+
+.date-drag-card,
+.date-step-choice,
+.date-option-card {
+  width: min(100%, 150px) !important;
+  max-width: 150px !important;
+  aspect-ratio: 1 / 1 !important;
+  min-height: 0 !important;
+  border: 1px solid rgba(255, 255, 255, 0.86) !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.48) 100%),
+    linear-gradient(135deg, #4f8cff 0%, #11c5d8 100%) !important;
+  color: #ffffff !important;
+  font-size: clamp(1.8rem, 4vh, 2.7rem) !important;
+  text-shadow: 0 2px 10px rgba(37, 52, 86, 0.22);
+}
+
+.date-drag-card:nth-child(3n + 1),
+.date-step-choice:nth-child(3n + 1),
+.date-option-card:nth-child(3n + 1) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.48) 100%),
+    linear-gradient(135deg, #ff78a9 0%, #ffbd72 100%) !important;
+}
+
+.date-drag-card:nth-child(3n),
+.date-step-choice:nth-child(3n),
+.date-option-card:nth-child(3n) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.50) 100%),
+    linear-gradient(135deg, #9f8cff 0%, #ff9ed7 100%) !important;
+}
+
+.date-drag-card--weather,
+.date-step-choice--image,
+.date-option-card--weather {
+  font-size: clamp(0.85rem, 1.7vh, 1.05rem) !important;
+}
+
+.date-drag-card--weather img,
+.date-step-choice--image img,
+.date-option-card--weather img {
+  width: min(92px, 82%) !important;
+  height: min(72px, 48%) !important;
+  object-fit: contain;
+  background: rgba(255, 255, 255, 0.74);
+}
+
+@media (max-width: 900px) {
+  .date-puzzle-board,
+  .date-step-final-board,
+  .date-step-summary-grid--final {
+    grid-template-columns: repeat(3, minmax(0, 145px)) !important;
+  }
+}
+
+@media (max-width: 560px) {
+  .date-mode-select {
+    grid-template-columns: repeat(2, minmax(0, 160px)) !important;
+  }
+
+  .date-mode-card {
+    width: min(100%, 160px);
+  }
+
+  .date-card-board {
+    grid-template-columns: repeat(2, minmax(0, 140px)) !important;
+  }
+}
+
 .date-puzzle {
   display: grid;
   grid-template-rows: minmax(0, 1fr) minmax(0, 0.95fr) auto;
@@ -4110,5 +5367,82 @@ body {
   .grid:not(.detail):not(.media):not(.grid--side-pager):not(.home-activity-picker):not(.home-runner-grid):not(.outing-summary-tiles) > .tile {
     width: min(100%, 210px) !important;
     max-width: 210px !important;
+  }
+}
+
+/* Final date polish: match main menu scale and keep units outside value cards. */
+.date-mode-select {
+  grid-template-columns: repeat(3, minmax(0, 245px)) !important;
+  justify-content: center !important;
+  justify-items: center !important;
+  max-width: 780px;
+  margin-inline: auto;
+}
+
+.date-mode-card {
+  width: min(100%, 245px) !important;
+  max-width: 245px !important;
+  aspect-ratio: 1 / 1 !important;
+  min-height: 0 !important;
+  border: 1px solid rgba(255, 255, 255, 0.86) !important;
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.48) 100%),
+    linear-gradient(135deg, #ff78a9 0%, #ffbd72 100%) !important;
+  color: #ffffff !important;
+}
+
+.date-mode-card:nth-child(3n + 2) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.76) 0%, rgba(255, 255, 255, 0.46) 100%),
+    linear-gradient(135deg, #4f8cff 0%, #11c5d8 100%) !important;
+}
+
+.date-mode-card:nth-child(3n) {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.78) 0%, rgba(255, 255, 255, 0.50) 100%),
+    linear-gradient(135deg, #9f8cff 0%, #ff9ed7 100%) !important;
+}
+
+.date-mode-icon {
+  color: #23437f;
+  text-shadow: none;
+}
+
+.date-mode-title,
+.date-mode-sub {
+  color: #ffffff !important;
+}
+
+.date-card-board {
+  grid-template-columns: repeat(5, minmax(0, 150px)) !important;
+  justify-content: center;
+}
+
+.date-field-label {
+  color: #31528f;
+}
+
+.date-field .date-slot {
+  width: 100% !important;
+  aspect-ratio: 1 / 1 !important;
+}
+
+.date-field .date-slot-main {
+  font-size: clamp(2.3rem, 6vh, 4rem) !important;
+}
+
+.date-field--weekday .date-slot-main,
+.date-field--weather .date-slot-main {
+  font-size: clamp(1.25rem, 2.7vh, 1.65rem) !important;
+}
+
+@media (max-width: 900px) {
+  .date-mode-select {
+    grid-template-columns: repeat(2, minmax(0, 245px)) !important;
+    max-width: 520px;
+  }
+
+  .date-card-board {
+    grid-template-columns: repeat(3, minmax(0, 150px)) !important;
   }
 }

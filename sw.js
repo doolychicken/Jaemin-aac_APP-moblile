@@ -4,7 +4,7 @@
  * On first visit, pre-caches all images so subsequent loads are instant.
  */
 
-const CACHE_VERSION = 'v90';
+const CACHE_VERSION = 'v100';
 const CACHE_NAME = `jaemin-aac-${CACHE_VERSION}`;
 
 self.addEventListener('message', (event) => {
@@ -17,6 +17,7 @@ const PRECACHE_ASSETS = [
   './',
   './index.html',
   './css/app.css',
+  './css/date-overrides.css',
   './js/data/app-data.js',
   './js/core/pager.js',
   './js/features/schedule.js',
