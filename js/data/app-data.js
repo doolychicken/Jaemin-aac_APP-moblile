@@ -1148,7 +1148,7 @@ const DATA = {
       helper: "오늘 날씨를 선택하세요.",
       hero: [],
       items: [
-        { label: "맑음",     image: "./images/weather_cards/sunny.svg", videoQuery: "맑은 하늘 짧은 영상" },
+        { label: "맑음",     image: "./images/weather_cards/sunny.svg", videoUrl: "https://www.youtube.com/watch?v=CrG6uJmNHZY", videoQuery: "맑은 하늘 짧은 영상" },
         { label: "흐림",     image: "./images/weather_cards/cloudy.svg", videoQuery: "흐린 하늘 구름 짧은 영상" },
         { label: "비",       image: "./images/weather_cards/rain.svg", videoUrl: "https://www.youtube.com/watch?v=T97dDOuJp60", videoQuery: "비 내리는 짧은 영상" },
         { label: "눈",       image: "./images/weather_cards/snow.svg", videoUrl: "https://www.youtube.com/watch?v=gs4oEpvJYAQ&list=PLy6aYif98q-gp3PHFfZCD9f8-Xt5xR2Sl", videoQuery: "눈 내리는 짧은 영상" },
