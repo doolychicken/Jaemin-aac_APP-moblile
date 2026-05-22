@@ -2696,6 +2696,7 @@ body {
   content: "";
   position: absolute;
   inset: -8px;
+  pointer-events: none;
 }
 
 .tile:active {
@@ -2736,6 +2737,35 @@ body {
   flex: 0 0 auto;
   font-size: clamp(0.72rem, 1.35vh, 0.9rem);
   line-height: 1;
+}
+
+.tile--has-video {
+  gap: clamp(4px, 0.8vh, 8px);
+}
+
+.tile--has-video img {
+  min-height: 0;
+}
+
+.tile-video-btn {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 6px 14px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.9);
+  color: #23437f;
+  font-size: clamp(0.78rem, 1.45vh, 0.95rem);
+  font-weight: 900;
+  line-height: 1;
+  text-shadow: none;
+  box-shadow: 0 8px 18px rgba(76, 111, 174, 0.12);
+  cursor: pointer;
+  position: relative;
+  z-index: 1;
+  touch-action: manipulation;
 }
 
 .tile.is-selected {

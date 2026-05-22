@@ -312,3 +312,144 @@
     max-width: 150px !important;
   }
 }
+
+/* Version 4: larger Gulim-like matching cards and separated weekday step. */
+.date-step {
+  font-family: Gulim, "굴림", "Malgun Gothic", sans-serif !important;
+}
+
+.date-step--date .date-step-date-board {
+  grid-template-columns: repeat(2, minmax(0, 330px)) !important;
+}
+
+.date-step--weekday .date-step-focus-card,
+.date-step--weather .date-step-focus-card {
+  min-height: clamp(235px, 32vh, 340px) !important;
+}
+
+.date-step-unit-pair {
+  grid-template-columns: minmax(0, 190px) auto !important;
+  gap: clamp(10px, 1.6vw, 18px) !important;
+}
+
+.date-step-unit-pair--year,
+.date-step--year .date-step-unit-pair--year {
+  grid-template-columns: minmax(0, 390px) auto !important;
+}
+
+.date-step-unit-pair--weather {
+  grid-template-columns: auto minmax(0, 190px) !important;
+}
+
+.date-step-unit-label {
+  color: #00735f !important;
+  font-family: Gulim, "굴림", "Malgun Gothic", sans-serif !important;
+  font-size: clamp(3rem, 7.2vh, 5.1rem) !important;
+  font-weight: 900 !important;
+  letter-spacing: 0 !important;
+  line-height: 0.95 !important;
+}
+
+.date-step-unit-pair--weather .date-step-unit-label,
+.date-step-unit-pair--weekday .date-step-unit-label {
+  font-size: clamp(2.75rem, 6.6vh, 4.7rem) !important;
+}
+
+.date-step .date-puzzle-slot {
+  width: min(100%, 190px) !important;
+  max-width: 190px !important;
+  font-family: Gulim, "굴림", "Malgun Gothic", sans-serif !important;
+  font-weight: 900 !important;
+}
+
+.date-step .date-step-focus-card .date-puzzle-slot {
+  width: 100% !important;
+  max-width: none !important;
+}
+
+.date-step--year .date-step-focus-card .date-puzzle-slot {
+  aspect-ratio: 1.9 / 1 !important;
+}
+
+.date-step .date-puzzle-slot-main {
+  font-family: Gulim, "굴림", "Malgun Gothic", sans-serif !important;
+  font-size: clamp(3.4rem, 8vh, 5.8rem) !important;
+  font-weight: 900 !important;
+}
+
+.date-step--year .date-puzzle-slot-main {
+  font-size: clamp(4.1rem, 9.8vh, 6.8rem) !important;
+}
+
+.date-step .date-puzzle-slot--weather .date-puzzle-slot-main {
+  font-size: clamp(2.8rem, 6.4vh, 4.6rem) !important;
+}
+
+.date-step .date-puzzle-slot--weather img {
+  width: min(116px, 76%) !important;
+  height: min(80px, 42%) !important;
+}
+
+.date-step .date-puzzle-card-grid {
+  grid-template-columns: repeat(auto-fit, minmax(150px, 190px)) !important;
+}
+
+.date-step .date-puzzle-card-grid--weekday {
+  grid-template-columns: repeat(7, minmax(118px, 140px)) !important;
+}
+
+.date-step .date-puzzle-card-grid--weather {
+  grid-template-columns: repeat(6, minmax(118px, 140px)) !important;
+}
+
+.date-step .date-drag-card {
+  width: min(100%, 190px) !important;
+  max-width: 190px !important;
+  font-family: Gulim, "굴림", "Malgun Gothic", sans-serif !important;
+  font-size: clamp(3.4rem, 8vh, 5.8rem) !important;
+  font-weight: 900 !important;
+  line-height: 1 !important;
+}
+
+.date-step .date-puzzle-card-grid--year .date-drag-card {
+  font-size: clamp(3rem, 7vh, 5rem) !important;
+}
+
+.date-step .date-puzzle-card-grid--weekday .date-drag-card {
+  width: min(100%, 140px) !important;
+  max-width: 140px !important;
+  font-size: clamp(3.25rem, 7.4vh, 5.2rem) !important;
+}
+
+.date-step .date-drag-card--weather {
+  font-size: clamp(1.6rem, 3.5vh, 2.4rem) !important;
+}
+
+.date-step .date-drag-card--weather img {
+  width: min(104px, 78%) !important;
+  height: min(70px, 42%) !important;
+}
+
+@media (max-width: 760px) {
+  .date-step--date .date-step-date-board {
+    grid-template-columns: repeat(2, minmax(0, 240px)) !important;
+  }
+
+  .date-step-unit-label,
+  .date-step-unit-pair--weather .date-step-unit-label,
+  .date-step-unit-pair--weekday .date-step-unit-label {
+    font-size: clamp(2.25rem, 6vh, 3.6rem) !important;
+  }
+
+  .date-step-unit-pair,
+  .date-step-unit-pair--year,
+  .date-step-unit-pair--weather,
+  .date-step--year .date-step-unit-pair--year {
+    grid-template-columns: minmax(0, 150px) auto !important;
+  }
+
+  .date-step .date-puzzle-card-grid--weekday,
+  .date-step .date-puzzle-card-grid--weather {
+    grid-template-columns: repeat(auto-fit, minmax(112px, 138px)) !important;
+  }
+}

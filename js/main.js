@@ -302,12 +302,20 @@ function setPlayer(youtubeUrl) {
   selectedYoutube = youtubeUrl;
   const start = parseStartSeconds(youtubeUrl);
   const startQuery = start > 0 ? `&start=${start}` : "";
-  playerEl.src = `https://www.youtube-nocookie.com/embed/${id}?playsinline=1&autoplay=1&rel=0&modestbranding=1${startQuery}`;
+  const originQuery = window.location.origin && window.location.origin !== "null"
+    ? `&origin=${encodeURIComponent(window.location.origin)}`
+    : "";
+  playerEl.referrerPolicy = "strict-origin-when-cross-origin";
+  playerEl.src = `https://www.youtube.com/embed/${id}?playsinline=1&autoplay=1&rel=0&modestbranding=1${startQuery}${originQuery}`;
 }
 
 function openYoutubeDirect(url) {
   if (!url) return;
   window.open(url, "_blank", "noopener,noreferrer");
+}
+
+function youtubeSearchUrl(query) {
+  return `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
 }
 
 function resolveYoutube(item) {
@@ -1535,7 +1543,9 @@ function renderDateStepFlowDrag() {
 
   function gotoStep(step) {
     dateStepPage = step;
-    if (step === "date" && !["month", "day", "weekday"].includes(dateCardFocus)) dateCardFocus = "month";
+    if (step === "date" && !["month", "day"].includes(dateCardFocus)) dateCardFocus = "month";
+    if (step === "weekday") dateCardFocus = "weekday";
+    if (step === "weather") dateCardFocus = "weather";
     if (step === "summary") {
       dateCardFocus = "year";
       Object.assign(dateStepFinalSelection, { year: null, month: null, day: null, weekday: null, weather: null });
@@ -1562,7 +1572,7 @@ function renderDateStepFlowDrag() {
     }
     if (kind === "day") {
       dateCardFocus = "weekday";
-      return "date";
+      return "weekday";
     }
     if (kind === "weekday") return "weather";
     if (kind === "weather") return "summary";
@@ -1664,14 +1674,24 @@ function renderDateStepFlowDrag() {
   function makeDropSlot(kind, unit, value, options = {}) {
     const slot = document.createElement("button");
     slot.type = "button";
-    const isFocused = (dateStepPage === "date" || dateStepPage === "summary") && dateCardFocus === kind;
+    const isFocused = (
+      (dateStepPage === "date" && ["month", "day"].includes(kind)) ||
+      (dateStepPage === "weekday" && kind === "weekday") ||
+      (dateStepPage === "weather" && kind === "weather") ||
+      dateStepPage === "summary"
+    ) && dateCardFocus === kind;
     slot.className = `date-puzzle-slot date-step-drop-slot${isFocused ? " is-active" : ""}${options.wide ? " date-puzzle-slot--wide" : ""}${options.weather ? " date-puzzle-slot--weather" : ""}`;
     slot.dataset.kind = kind;
     slot.dataset.label = unit;
     const speechValue = currentSlotSpeechValue(kind, value);
     if (speechValue) slot.dataset.speechValue = String(speechValue);
     slot.addEventListener("click", () => {
-      if ((dateStepPage === "date" && ["month", "day", "weekday"].includes(kind)) || dateStepPage === "summary") {
+      if (
+        (dateStepPage === "date" && ["month", "day"].includes(kind)) ||
+        (dateStepPage === "weekday" && kind === "weekday") ||
+        (dateStepPage === "weather" && kind === "weather") ||
+        dateStepPage === "summary"
+      ) {
         dateCardFocus = kind;
         const nextSpeechValue = currentSlotSpeechValue(kind, slot.dataset.speechValue || value);
         speak(nextSpeechValue ? spokenStepLabel(kind, nextSpeechValue) : unit);
@@ -1894,12 +1914,11 @@ function renderDateStepFlowDrag() {
   }
 
   if (dateStepPage === "date") {
-    if (!["month", "day", "weekday"].includes(dateCardFocus)) dateCardFocus = "month";
+    if (!["month", "day"].includes(dateCardFocus)) dateCardFocus = "month";
     const board = document.createElement("section");
     board.className = "date-puzzle-board date-step-date-board";
     board.appendChild(makeStepUnitPair("month", "월", datePuzzleBlankSelection.month));
     board.appendChild(makeStepUnitPair("day", "일", datePuzzleBlankSelection.day));
-    board.appendChild(makeStepUnitPair("weekday", "요일", datePuzzleBlankSelection.weekday ? datePuzzleBlankSelection.weekday.replace("요일", "") : ""));
     gridEl.appendChild(board);
 
     const tray = document.createElement("section");
@@ -1912,15 +1931,34 @@ function renderDateStepFlowDrag() {
     cardGrid.className = `date-puzzle-card-grid date-puzzle-card-grid--${dateCardFocus}`;
     const focusGroup = {
       month: { kind: "month", values: twoNumberChoices(answer.month, 1, 12), label: (v) => String(v) },
-      day: { kind: "day", values: twoNumberChoices(answer.day, 1, 31), label: (v) => String(v) },
-      weekday: { kind: "weekday", values: weekdayChoices, label: (v) => v.replace("요일", "") }
+      day: { kind: "day", values: twoNumberChoices(answer.day, 1, 31), label: (v) => String(v) }
     }[dateCardFocus];
     focusGroup.values.forEach((value) => {
       cardGrid.appendChild(makeDragCard(focusGroup.kind, value, focusGroup.label(value)));
     });
     tray.appendChild(cardGrid);
     gridEl.appendChild(tray);
-    addActions("year", "weather");
+    addActions("year", "weekday");
+    return;
+  }
+
+  if (dateStepPage === "weekday") {
+    dateCardFocus = "weekday";
+    const board = document.createElement("section");
+    board.className = "date-step-focus-card date-step-focus-card--weekday";
+    board.appendChild(makeStepUnitPair("weekday", "요일", datePuzzleBlankSelection.weekday ? datePuzzleBlankSelection.weekday.replace("요일", "") : ""));
+    gridEl.appendChild(board);
+
+    const tray = document.createElement("section");
+    tray.className = "date-puzzle-tray";
+    const cardGrid = document.createElement("div");
+    cardGrid.className = "date-puzzle-card-grid date-puzzle-card-grid--weekday";
+    weekdayChoices.forEach((weekday) => {
+      cardGrid.appendChild(makeDragCard("weekday", weekday, weekday.replace("요일", "")));
+    });
+    tray.appendChild(cardGrid);
+    gridEl.appendChild(tray);
+    addActions("date", "weather");
     return;
   }
 
@@ -1939,7 +1977,7 @@ function renderDateStepFlowDrag() {
     });
     tray.appendChild(cardGrid);
     gridEl.appendChild(tray);
-    addActions("date", "summary");
+    addActions("weekday", "summary");
     return;
   }
 
@@ -2644,6 +2682,18 @@ function renderButtons(items, layout) {
     ? `grid${sideNavClass}${extraGridClass}`
     : (isMedia ? `grid media${extraGridClass}` : `grid detail${extraGridClass}`);
 
+  function openWeatherVideo(item) {
+    if (item.videoUrl) {
+      openYoutubeDirect(item.videoUrl);
+    } else if (item.videoQuery) {
+      openYoutubeDirect(youtubeSearchUrl(item.videoQuery));
+    } else {
+      return;
+    }
+    playWeatherSound(item.label);
+    speak(`${item.label} 영상 보기`);
+  }
+
   function activateItem(item) {
     const yUrl = resolveYoutube(item);
     const speechText = item.speech || item.label;
@@ -2716,6 +2766,25 @@ function renderButtons(items, layout) {
       const label = document.createElement("div");
       label.className = "tile-label"; label.textContent = item.label;
       btn.appendChild(label);
+      if (currentKey() === "weatherHome" && item.videoQuery) {
+        btn.classList.add("tile--has-video");
+        const videoBtn = document.createElement("span");
+        videoBtn.className = "tile-video-btn";
+        videoBtn.textContent = "영상 보기";
+        videoBtn.setAttribute("role", "button");
+        videoBtn.setAttribute("tabindex", "0");
+        videoBtn.addEventListener("click", (e) => {
+          e.stopPropagation();
+          openWeatherVideo(item);
+        });
+        videoBtn.addEventListener("keydown", (e) => {
+          if (e.key !== "Enter" && e.key !== " ") return;
+          e.preventDefault();
+          e.stopPropagation();
+          openWeatherVideo(item);
+        });
+        btn.appendChild(videoBtn);
+      }
     } else if (isMain) {
       btn.className = "tile";
       const art = document.createElement("div");
@@ -2734,7 +2803,13 @@ function renderButtons(items, layout) {
       btn.textContent = item.label;
     }
 
-    btn.addEventListener("click", () => activateItem(item));
+    btn.addEventListener("click", (e) => {
+      if (currentKey() === "weatherHome" && item.videoQuery && e.target.closest(".tile-video-btn")) {
+        openWeatherVideo(item);
+        return;
+      }
+      activateItem(item);
+    });
 
     if (item.nav) {
       btn.addEventListener("pointerdown", () => prefetchScreenImages(item.nav), { passive: true });

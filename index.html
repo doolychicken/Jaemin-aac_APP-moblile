@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <link rel="preconnect" href="https://www.youtube.com" />
   <link rel="preconnect" href="https://img.youtube.com" />
   <link rel="preconnect" href="https://i.ytimg.com" />
   <title>AAC 앱</title>
-  <link rel="stylesheet" href="./css/app.css?v=118" />
-  <link rel="stylesheet" href="./css/date-overrides.css?v=118" />
+  <link rel="stylesheet" href="./css/app.css?v=126" />
+  <link rel="stylesheet" href="./css/date-overrides.css?v=126" />
 </head>
 <body>
   <main class="app">
@@ -32,7 +33,7 @@
         class="player"
         title="AAC YouTube Player"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="origin"
+        referrerpolicy="strict-origin-when-cross-origin"
         allowfullscreen>
       </iframe>
     </section>
@@ -48,15 +49,15 @@
     <section id="buttonGrid" class="grid"></section>
   </main>
 
-  <script src="./js/data/app-data.js?v=118"></script>
-  <script src="./js/core/pager.js?v=118"></script>
-  <script src="./js/features/schedule.js?v=118"></script>
-  <script src="./js/main.js?v=118"></script>
+  <script src="./js/data/app-data.js?v=126"></script>
+  <script src="./js/core/pager.js?v=126"></script>
+  <script src="./js/features/schedule.js?v=126"></script>
+  <script src="./js/main.js?v=126"></script>
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
         /* sw.js에도 v를 붙이지 않으면 Safari가 옛 서비스 워커를 붙잡는 경우가 있음 */
-        navigator.serviceWorker.register('./sw.js?v=118', { updateViaCache: 'none' })
+        navigator.serviceWorker.register('./sw.js?v=126', { updateViaCache: 'none' })
           .then(function (reg) { reg.update().catch(function () {}); })
           .catch(function () { /* local file 등 */ });
       });

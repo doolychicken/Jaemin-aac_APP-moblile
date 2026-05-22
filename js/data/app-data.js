@@ -57,7 +57,7 @@ function buildStudyScreensMap() {
   ];
 
   const rest = {};
-  const homeItems = [
+  const teachingAidItems = [
     { label: "스티커북", nav: "studySticker",    image: "./images/stickerbook_mart.png" },
     { label: "꼭지퍼즐", nav: "studyKnobPuzzle", image: "./images/knobpuzzle_fruits.png" },
     ...defs.map((d) => ({
@@ -66,6 +66,38 @@ function buildStudyScreensMap() {
       image: d.studyTileImage || "./images/study.png"
     }))
   ];
+
+  const appStudyItems = [
+    { label: "숫자",   nav: "studySticker_6",  image: "./images/stickerbook_number.png" },
+    { label: "과일",   nav: "studySticker_2",  image: "./images/stickerbook_fruit.png" },
+    { label: "우리집", nav: "studySticker_3",  image: "./images/stickerbook_myhome.png" },
+    { label: "동물",   nav: "studySticker_4",  image: "./images/stickerbook_animal.png" },
+    { label: "탈것",   nav: "studySticker_5",  image: "./images/stickerbook_vehicle.png" },
+    { label: "색깔",   nav: "studySticker_10", image: "./images/stickerbook_shape.png" }
+  ];
+
+  const homeItems = [
+    { label: "교구선택", nav: "studyTeachingAids", image: "./images/study_pegboard.png" },
+    { label: "앱 공부",  nav: "studyAppLearning", image: "./images/stickerbook_number.png" }
+  ];
+
+  rest.studyTeachingAids = {
+    title: "교구선택",
+    helper: "교구를 선택하세요.",
+    hero: [],
+    items: teachingAidItems,
+    layout: "main",
+    showPlayer: false
+  };
+
+  rest.studyAppLearning = {
+    title: "앱 공부",
+    helper: "공부할 것을 선택하세요.",
+    hero: [],
+    items: appStudyItems,
+    layout: "main",
+    showPlayer: false
+  };
 
   // 스티커북
   rest.studySticker = {
@@ -1116,12 +1148,12 @@ const DATA = {
       helper: "오늘 날씨를 선택하세요.",
       hero: [],
       items: [
-        { label: "맑음",     image: "./images/weather_cards/sunny.svg" },
-        { label: "흐림",     image: "./images/weather_cards/cloudy.svg" },
-        { label: "비",       image: "./images/weather_cards/rain.svg" },
-        { label: "눈",       image: "./images/weather_cards/snow.svg" },
-        { label: "바람",     image: "./images/weather_cards/wind.svg" },
-        { label: "천둥번개", image: "./images/weather_cards/thunder.svg" }
+        { label: "맑음",     image: "./images/weather_cards/sunny.svg", videoQuery: "맑은 하늘 짧은 영상" },
+        { label: "흐림",     image: "./images/weather_cards/cloudy.svg", videoQuery: "흐린 하늘 구름 짧은 영상" },
+        { label: "비",       image: "./images/weather_cards/rain.svg", videoUrl: "https://www.youtube.com/watch?v=T97dDOuJp60", videoQuery: "비 내리는 짧은 영상" },
+        { label: "눈",       image: "./images/weather_cards/snow.svg", videoUrl: "https://www.youtube.com/watch?v=gs4oEpvJYAQ&list=PLy6aYif98q-gp3PHFfZCD9f8-Xt5xR2Sl", videoQuery: "눈 내리는 짧은 영상" },
+        { label: "바람",     image: "./images/weather_cards/wind.svg", videoUrl: "https://www.youtube.com/shorts/VuHsp3LMvRI", videoQuery: "바람 부는 나무 짧은 영상" },
+        { label: "천둥번개", image: "./images/weather_cards/thunder.svg", videoUrl: "https://www.youtube.com/shorts/HJFtcvcGql0", videoQuery: "천둥 번개 짧은 영상" }
       ],
       layout: "main",
       showPlayer: false
