@@ -696,9 +696,7 @@ const DATA = {
         { label: "맑음",     image: "./images/weather_cards/sunny.svg" },
         { label: "흐림",     image: "./images/weather_cards/cloudy.svg" },
         { label: "비",       image: "./images/weather_cards/rain.svg" },
-        { label: "눈",       image: "./images/weather_cards/snow.svg" },
-        { label: "바람",     image: "./images/weather_cards/wind.svg" },
-        { label: "천둥번개", image: "./images/weather_cards/thunder.svg" }
+        { label: "눈",       image: "./images/weather_cards/snow.svg" }
       ],
       layout: "main",
       showPlayer: false
@@ -1151,9 +1149,7 @@ const DATA = {
         { label: "맑음",     image: "./images/weather_cards/sunny.svg", videoUrl: "https://www.youtube.com/watch?v=CrG6uJmNHZY", videoQuery: "맑은 하늘 짧은 영상" },
         { label: "흐림",     image: "./images/weather_cards/cloudy.svg", videoQuery: "흐린 하늘 구름 짧은 영상" },
         { label: "비",       image: "./images/weather_cards/rain.svg", videoUrl: "https://www.youtube.com/watch?v=T97dDOuJp60", videoQuery: "비 내리는 짧은 영상" },
-        { label: "눈",       image: "./images/weather_cards/snow.svg", videoUrl: "https://www.youtube.com/watch?v=gs4oEpvJYAQ&list=PLy6aYif98q-gp3PHFfZCD9f8-Xt5xR2Sl", videoQuery: "눈 내리는 짧은 영상" },
-        { label: "바람",     image: "./images/weather_cards/wind.svg", videoUrl: "https://www.youtube.com/shorts/VuHsp3LMvRI", videoQuery: "바람 부는 나무 짧은 영상" },
-        { label: "천둥번개", image: "./images/weather_cards/thunder.svg", videoUrl: "https://www.youtube.com/shorts/HJFtcvcGql0", videoQuery: "천둥 번개 짧은 영상" }
+        { label: "눈",       image: "./images/weather_cards/snow.svg", videoUrl: "https://www.youtube.com/watch?v=gs4oEpvJYAQ&list=PLy6aYif98q-gp3PHFfZCD9f8-Xt5xR2Sl", videoQuery: "눈 내리는 짧은 영상" }
       ],
       layout: "main",
       showPlayer: false

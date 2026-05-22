@@ -1760,6 +1760,11 @@ function renderDateStepFlowDrag() {
     card.dataset.kind = kind;
     card.dataset.value = String(value);
     card.draggable = true;
+    let suppressNextClick = false;
+    function speakCardLabel() {
+      if (options.weather) playWeatherSound(label);
+      speak(options.speechLabel || label);
+    }
     card.addEventListener("dragstart", (e) => {
       activeDragCard = card;
       e.dataTransfer.setData("text/kind", kind);
@@ -1773,6 +1778,7 @@ function renderDateStepFlowDrag() {
       if (e.pointerType === "mouse") return;
       activeDragCard = card;
       const rect = card.getBoundingClientRect();
+      let didMove = false;
       const ghost = card.cloneNode(true);
       ghost.classList.add("date-drag-card--ghost");
       Object.assign(ghost.style, {
@@ -1791,11 +1797,14 @@ function renderDateStepFlowDrag() {
       e.preventDefault();
 
       function move(ev) {
+        const dx = ev.clientX - e.clientX;
+        const dy = ev.clientY - e.clientY;
+        if ((dx * dx) + (dy * dy) > 64) didMove = true;
         ghost.style.left = `${rect.left + ev.clientX - e.clientX}px`;
         ghost.style.top = `${rect.top + ev.clientY - e.clientY}px`;
         const target = document.elementFromPoint(ev.clientX, ev.clientY)?.closest(".date-step-drop-slot");
         document.querySelectorAll(".date-step-drop-slot.is-ready").forEach((el) => el.classList.remove("is-ready"));
-        if (target?.dataset.kind === kind) target.classList.add("is-ready");
+        if (didMove && target?.dataset.kind === kind) target.classList.add("is-ready");
       }
 
       function up(ev) {
@@ -1807,7 +1816,9 @@ function renderDateStepFlowDrag() {
         ghost.remove();
         const target = document.elementFromPoint(ev.clientX, ev.clientY)?.closest(".date-step-drop-slot");
         document.querySelectorAll(".date-step-drop-slot.is-ready").forEach((el) => el.classList.remove("is-ready"));
-        if (target?.dataset.kind === kind) setMatched(kind, value, target, card);
+        suppressNextClick = true;
+        if (!didMove) speakCardLabel();
+        else if (target?.dataset.kind === kind) setMatched(kind, value, target, card);
         else showMiss();
         activeDragCard = null;
       }
@@ -1827,8 +1838,11 @@ function renderDateStepFlowDrag() {
       card.addEventListener("pointercancel", cancel);
     });
     card.addEventListener("click", () => {
-      if (options.weather) playWeatherSound(label);
-      speak(label);
+      if (suppressNextClick) {
+        suppressNextClick = false;
+        return;
+      }
+      speakCardLabel();
     });
 
     if (options.image) {
@@ -1954,7 +1968,7 @@ function renderDateStepFlowDrag() {
     const cardGrid = document.createElement("div");
     cardGrid.className = "date-puzzle-card-grid date-puzzle-card-grid--weekday";
     weekdayChoices.forEach((weekday) => {
-      cardGrid.appendChild(makeDragCard("weekday", weekday, weekday.replace("요일", "")));
+      cardGrid.appendChild(makeDragCard("weekday", weekday, weekday.replace("요일", ""), { speechLabel: weekday }));
     });
     tray.appendChild(cardGrid);
     gridEl.appendChild(tray);
@@ -2013,7 +2027,7 @@ function renderDateStepFlowDrag() {
       });
     } else if (dateCardFocus === "weekday") {
       weekdayChoices.forEach((weekday) => {
-        cardGrid.appendChild(makeDragCard("weekday", weekday, weekday.replace("요일", "")));
+        cardGrid.appendChild(makeDragCard("weekday", weekday, weekday.replace("요일", ""), { speechLabel: weekday }));
       });
     } else {
       weatherItems.forEach((item) => {

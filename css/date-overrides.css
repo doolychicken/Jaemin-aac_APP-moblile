@@ -316,15 +316,43 @@
 /* Version 4: larger Gulim-like matching cards and separated weekday step. */
 .date-step {
   font-family: Gulim, "굴림", "Malgun Gothic", sans-serif !important;
+  grid-template-rows: auto auto auto !important;
+  align-content: center !important;
+  gap: clamp(14px, 2vh, 22px) !important;
 }
 
 .date-step--date .date-step-date-board {
   grid-template-columns: repeat(2, minmax(0, 330px)) !important;
 }
 
+.date-step .date-step-focus-card,
+.date-step .date-step-date-board {
+  min-height: clamp(220px, 30vh, 305px) !important;
+}
+
 .date-step--weekday .date-step-focus-card,
 .date-step--weather .date-step-focus-card {
-  min-height: clamp(235px, 32vh, 340px) !important;
+  min-height: clamp(220px, 30vh, 305px) !important;
+}
+
+.date-step .date-puzzle-tray {
+  min-height: clamp(210px, 27vh, 270px) !important;
+  display: grid !important;
+  place-items: center !important;
+  align-content: center !important;
+  justify-content: center !important;
+}
+
+.date-step--year .date-puzzle-tray {
+  min-height: clamp(210px, 26vh, 260px) !important;
+}
+
+.date-step .date-puzzle-card-grid {
+  width: fit-content !important;
+  max-width: 100% !important;
+  align-items: center !important;
+  justify-items: center !important;
+  align-content: center !important;
 }
 
 .date-step-unit-pair {
@@ -394,12 +422,18 @@
   grid-template-columns: repeat(auto-fit, minmax(150px, 190px)) !important;
 }
 
+.date-step .date-puzzle-card-grid--month,
+.date-step .date-puzzle-card-grid--day {
+  grid-template-columns: repeat(2, minmax(150px, 190px)) !important;
+  width: min(100%, 410px) !important;
+}
+
 .date-step .date-puzzle-card-grid--weekday {
   grid-template-columns: repeat(7, minmax(118px, 140px)) !important;
 }
 
 .date-step .date-puzzle-card-grid--weather {
-  grid-template-columns: repeat(6, minmax(118px, 140px)) !important;
+  grid-template-columns: repeat(4, minmax(150px, 190px)) !important;
 }
 
 .date-step .date-drag-card {
@@ -422,12 +456,14 @@
 }
 
 .date-step .date-drag-card--weather {
-  font-size: clamp(1.6rem, 3.5vh, 2.4rem) !important;
+  width: min(100%, 190px) !important;
+  max-width: 190px !important;
+  font-size: clamp(1.8rem, 4vh, 2.7rem) !important;
 }
 
 .date-step .date-drag-card--weather img {
-  width: min(104px, 78%) !important;
-  height: min(70px, 42%) !important;
+  width: min(128px, 82%) !important;
+  height: min(92px, 48%) !important;
 }
 
 @media (max-width: 760px) {
