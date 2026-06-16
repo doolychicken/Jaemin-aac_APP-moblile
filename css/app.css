@@ -101,6 +101,11 @@ body {
   justify-content: space-between;
   gap: 12px;
   flex: 0 0 auto;
+  flex-wrap: wrap;
+}
+
+.topbar > div:first-child {
+  min-width: 0;
 }
 
 .return-hint {
@@ -171,6 +176,8 @@ body {
   display: flex;
   gap: 8px;
   align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
 }
 
 .body--fullscreen-soft {
@@ -4915,8 +4922,14 @@ body {
   }
 
   .topbar {
+    align-items: flex-start;
     min-height: 58px;
     padding: 8px;
+  }
+
+  .topbar-btns {
+    width: 100%;
+    justify-content: flex-end;
   }
 
   .home-btn,
@@ -5362,6 +5375,43 @@ body {
   aspect-ratio: 1 / 1 !important;
 }
 
+.grid.grid--side-pager > .tile.quick-toilet-side {
+  grid-column: 4;
+  grid-row: 2;
+  align-self: center;
+  justify-self: center;
+  width: min(100%, 245px) !important;
+  max-width: 245px !important;
+  aspect-ratio: 1 / 1 !important;
+}
+
+.grid.grid--side-pager-with-toilet:not(.grid--side-pager-triple) .tile-nav-arrow {
+  grid-row: 1;
+}
+
+.grid.grid--side-pager-triple .tile-nav-arrow--prev {
+  grid-row: 1;
+}
+
+.grid.grid--side-pager-triple .tile-nav-arrow--next {
+  grid-row: 2;
+}
+
+.grid.grid--side-pager-triple > .tile.quick-toilet-side {
+  grid-row: 3;
+}
+
+.quick-toilet-tile {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.58) 100%),
+    linear-gradient(135deg, #d8b4fe 0%, #f9a8d4 100%);
+}
+
+.quick-toilet-tile img {
+  object-fit: contain;
+  background: rgba(255, 255, 255, 0.78);
+}
+
 .tile-nav-arrow {
   grid-column: 4;
   grid-row: 1 / span 2;
@@ -5456,6 +5506,17 @@ body {
     grid-column: 3;
     grid-row: 1 / span 3;
     width: min(100%, 210px) !important;
+  }
+
+  .grid.grid--side-pager > .tile.quick-toilet-side {
+    grid-column: 3;
+    grid-row: 2;
+    width: min(100%, 210px) !important;
+    max-width: 210px !important;
+  }
+
+  .grid.grid--side-pager-triple > .tile.quick-toilet-side {
+    grid-row: 3;
   }
 
   .tile-nav-arrow {

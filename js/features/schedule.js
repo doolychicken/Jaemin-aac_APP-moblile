@@ -2079,6 +2079,12 @@ function renderFridaySlotPicker(slotKey) {
       if (key === "scheduleFridayFinalResult") {
         DATA.screens.scheduleFridayFinalResult.items = buildFridayPlanItems();
       }
+      if (screen.homeActivityGroupId && homeActivityGroupId !== screen.homeActivityGroupId) {
+        homeActivityGroupId = screen.homeActivityGroupId;
+        homeScheduleGroupId = screen.homeActivityGroupId;
+        homeActivityPage = 0;
+        homeShoppingTargetLabel = "";
+      }
 
       if (screen.layout === "weeklySchedule") {
         renderWeeklySchedule();
@@ -2109,6 +2115,7 @@ function renderFridaySlotPicker(slotKey) {
     }
 
     function handleBack(key) {
+      const screen = DATA.screens[key] || {};
       if (key === "scheduleHomeActivity" && homeActivityGroupId) {
         if (homeShoppingTargetLabel) {
           homeShoppingTargetLabel = "";
@@ -2123,6 +2130,11 @@ function renderFridaySlotPicker(slotKey) {
         homeActivityGroupId = "";
         homeActivityPage = 0;
         homeShoppingTargetLabel = "";
+        render();
+        return true;
+      }
+      if (screen.homeActivityGroupId && homeActivityPage > 0) {
+        homeActivityPage = 0;
         render();
         return true;
       }

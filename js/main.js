@@ -2746,33 +2746,84 @@ function renderHero(items) {
   });
 }
 
+function goToToilet() {
+  speak("화장실");
+  if (currentKey() !== "toilet") {
+    pushScreen("toilet", "화장실");
+    render();
+  }
+}
+
+function hasVisibleToiletTile() {
+  return Array.from(gridEl.querySelectorAll("button")).some((btn) => {
+    return (btn.textContent || "").trim() === "화장실";
+  });
+}
+
+function appendQuickToiletTile(options = {}) {
+  if (currentKey() === "toilet" || hasVisibleToiletTile()) return;
+  const btn = document.createElement("button");
+  btn.className = options.side ? "tile quick-toilet-tile quick-toilet-side" : "tile quick-toilet-tile";
+  btn.type = "button";
+
+  const img = document.createElement("img");
+  img.src = "./images/pee.png";
+  img.alt = "화장실";
+  setupImageElement(img, true);
+
+  const label = document.createElement("div");
+  label.className = "tile-label";
+  label.textContent = "화장실";
+
+  btn.appendChild(img);
+  btn.appendChild(label);
+  btn.addEventListener("click", goToToilet);
+  gridEl.appendChild(btn);
+}
+
 function renderButtons(items, layout) {
   gridEl.innerHTML = "";
   const isMain  = layout === "main";
   const isMedia = layout === "media";
+  const usesSideFrame = isMain || isMedia;
   const sideSlotItem = isMain && currentKey() === "mealRice"
     ? (items || []).find((item) => item.sideSlot)
     : null;
+  const rawItems = items || [];
+  const hasToiletInScreen = rawItems.some((item) => item.label === "화장실");
+  const shouldAddQuickToilet = currentKey() !== "toilet" && !hasToiletInScreen;
   const listItems = sideSlotItem ? (items || []).filter((item) => item !== sideSlotItem) : (items || []);
+  const manualSideNavItems = usesSideFrame
+    ? listItems.filter((item) => item.label === "다음" || item.label === "이전")
+    : [];
+  const manualContentItems = manualSideNavItems.length
+    ? listItems.filter((item) => item.label !== "다음" && item.label !== "이전")
+    : listItems;
   const pageInfo = sideSlotItem
     ? { items: listItems, page: 0, totalPages: 1, key: "", paged: false }
-    : paginateItems(listItems, layout, "", 0, { sidePager: isMain });
-  const sideNavItems = isMain
-    ? pageInfo.items.filter((item) => item.label === "다음" || item.label === "이전")
+    : (usesSideFrame && manualSideNavItems.length)
+      ? paginateItems(manualContentItems, layout, `manual-${currentKey()}`, 0, { sidePager: true })
+      : paginateItems(listItems, layout, "", 0, { sidePager: usesSideFrame });
+  const sideNavItems = usesSideFrame
+    ? (manualSideNavItems.length
+        ? (pageInfo.paged && pageInfo.page > 0 ? [] : manualSideNavItems)
+        : pageInfo.items.filter((item) => item.label === "다음" || item.label === "이전"))
     : [];
   const visibleItems = sideNavItems.length
     ? pageInfo.items.filter((item) => item.label !== "다음" && item.label !== "이전")
     : pageInfo.items;
   const extraGridClass = currentKey() === "mealDrink" ? " grid--meal-drink" : "";
-  const autoSideNavCount = isMain && pageInfo.paged
+  const autoSideNavCount = usesSideFrame && pageInfo.paged
     ? Number(pageInfo.page > 0) + Number(pageInfo.page < pageInfo.totalPages - 1)
     : 0;
-  const sideNavClass = isMain && (sideNavItems.length || autoSideNavCount)
-    ? ` grid--side-pager${(sideNavItems.length || autoSideNavCount) > 1 ? " grid--side-pager-double" : ""}`
+  const sideNavBaseCount = sideNavItems.length || autoSideNavCount;
+  const sideControlCount = sideNavBaseCount + Number(shouldAddQuickToilet);
+  const sideNavClass = usesSideFrame && sideControlCount
+    ? ` grid--side-pager${sideControlCount > 1 ? " grid--side-pager-double" : ""}${sideControlCount > 2 ? " grid--side-pager-triple" : ""}${shouldAddQuickToilet ? " grid--side-pager-with-toilet" : ""}`
     : "";
   gridEl.className = isMain
     ? `grid${sideSlotItem ? " grid--side-pager grid--side-slot" : sideNavClass}${extraGridClass}`
-    : (isMedia ? `grid media${extraGridClass}` : `grid detail${extraGridClass}`);
+    : (isMedia ? `grid media${sideNavClass}${extraGridClass}` : `grid detail${extraGridClass}`);
 
   function openWeatherVideo(item) {
     if (item.videoUrl) {
@@ -2844,7 +2895,7 @@ function renderButtons(items, layout) {
     const yUrl = resolveYoutube(item);
 
     if ((isMain && item.image) || (isMedia && (item.image || yUrl))) {
-      const isNavBtn = isMain && (item.label === "다음" || item.label === "이전");
+      const isNavBtn = usesSideFrame && (item.label === "다음" || item.label === "이전");
       btn.className = isNavBtn ? "tile tile-nav" : "tile";
       if (currentKey() === "weatherHome" || currentKey() === "dateWeatherPicker") {
         btn.classList.add("tile--weather-choice");
@@ -2944,8 +2995,9 @@ function renderButtons(items, layout) {
     btn.addEventListener("click", () => activateItem(sideSlotItem));
     gridEl.appendChild(btn);
   } else {
-    appendPagerButtons(gridEl, pageInfo, { sidePager: isMain });
+    appendPagerButtons(gridEl, pageInfo, { sidePager: usesSideFrame });
   }
+  appendQuickToiletTile({ side: usesSideFrame && !sideSlotItem && shouldAddQuickToilet });
 }
 
 // ── 메인 렌더 ────────────────────────────────────────────────────────────────
@@ -3050,6 +3102,10 @@ function render() {
     heroEl.className = "hero";
     gridEl.style.display = "";
     renderButtons(screen.items || [], screen.layout || (isMain ? "main" : "detail"));
+  }
+
+  if (gridEl.style.display !== "none") {
+    appendQuickToiletTile();
   }
 
   requestAnimationFrame(() => prefetchLikelyNextScreens(key));

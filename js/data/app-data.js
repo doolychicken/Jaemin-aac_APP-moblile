@@ -66,9 +66,9 @@ const DATA = {
         { label: "아이패드",   nav: "ipadHome",     image: "./images/ipad.png" },
         { label: "밥 먹기",   nav: "meal",         image: "./images/meal.png" },
         { label: "화장실",    nav: "toilet",       image: "./images/pee.png" },
-        { label: "학교",      nav: "outingSchool", image: "./images/outing_school1.png" },
-        { label: "스케줄표",  nav: "scheduleHome", image: "./images/app_schedule.svg" },
-        { label: "날짜",      nav: "dateHome",     image: "./images/app_date.svg" },
+        { label: "외출",      nav: "scheduleHomeOuting", image: "./images/outing.png" },
+        { label: "장소",      nav: "outingPlace",  image: "./images/outing_park1.png" },
+        { label: "공부하기",  nav: "studyHome",    image: "./images/study.png" },
         { label: "다음",      nav: "main_p2",      image: "./images/outing.png" }
       ],
       layout: "main"
@@ -79,9 +79,10 @@ const DATA = {
       helper: "추가 카테고리를 선택하세요.",
       hero: [],
       items: [
-        { label: "외출하기",  nav: "outingHome",   image: "./images/outing.png" },
-        { label: "장소",      nav: "outingPlace",  image: "./images/outing_park1.png" },
-        { label: "공부하기",  nav: "studyHome",    image: "./images/study.png" },
+        { label: "교통수단사람장소 외출", nav: "outingHome", image: "./images/outing.png" },
+        { label: "학교",      nav: "outingSchool", image: "./images/outing_school1.png" },
+        { label: "스케줄표",  nav: "scheduleHome", image: "./images/app_schedule.svg" },
+        { label: "날짜",      nav: "dateHome",     image: "./images/app_date.svg" },
         { label: "과목",      nav: "subjectHome",  icon: "📚" },
         { label: "사람",      nav: "peopleHome",   image: "./images/outing_person_me.png" },
         { label: "날씨",      nav: "weatherHome",  image: "./images/weather.png" },
@@ -255,6 +256,16 @@ const DATA = {
       hero: [],
       items: [],
       layout: "weeklyDetail",
+      showPlayer: false
+    },
+
+    scheduleHomeOuting: {
+      title: "외출",
+      helper: "외출할 일을 순서대로 골라요.",
+      hero: [],
+      items: [],
+      layout: "homeActivityPicker",
+      homeActivityGroupId: "outing",
       showPlayer: false
     },
 
