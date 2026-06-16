@@ -38,8 +38,21 @@
       const state = studyPuzzleProgress[key];
       if (!state.matchColors) state.matchColors = {};
       if (typeof state.generation !== "number") state.generation = 0;
+      if (typeof state.page !== "number") state.page = 0;
       let activePuzzleCard = null;
       removeFloatingPuzzlePieces();
+      const pageSize = Number(puzzle.pageSize || 0);
+      const isPagedPuzzle = pageSize > 0 && slots.length > pageSize;
+      const totalPages = isPagedPuzzle ? Math.ceil(slots.length / pageSize) : 1;
+      state.page = Math.max(0, Math.min(state.page, totalPages - 1));
+      const pageStart = isPagedPuzzle ? state.page * pageSize : 0;
+      const visibleSlotEntries = slots
+        .map((slot, index) => ({ slot, index }))
+        .slice(pageStart, isPagedPuzzle ? pageStart + pageSize : slots.length);
+      const visibleValues = new Set(visibleSlotEntries.map(({ slot }) => String(slot.value)));
+      const visiblePieces = isPagedPuzzle
+        ? pieces.filter((piece) => visibleValues.has(String(piece.value)))
+        : pieces;
     
       appMainEl.classList.remove("app--spotlight");
       spotlightViewEl.style.display = "none";
@@ -582,18 +595,20 @@
     
       const board = document.createElement("section");
       board.className = "study-puzzle-board";
-      slots.forEach((slot, index) => board.appendChild(makeSlot(slot, index)));
+      visibleSlotEntries.forEach(({ slot, index }) => board.appendChild(makeSlot(slot, index)));
       gridEl.appendChild(board);
     
       const tray = document.createElement("section");
       tray.className = "study-puzzle-tray";
       const trayTitle = document.createElement("div");
       trayTitle.className = "study-puzzle-tray-title";
-      trayTitle.textContent = isComplete() ? "다 맞췄어요!" : "퍼즐 조각";
+      trayTitle.textContent = isComplete()
+        ? "다 맞췄어요!"
+        : (isPagedPuzzle ? `퍼즐 조각 ${state.page + 1}/${totalPages}` : "퍼즐 조각");
       tray.appendChild(trayTitle);
       const cardGrid = document.createElement("div");
       cardGrid.className = "study-puzzle-card-grid";
-      pieces
+      visiblePieces
         .forEach((piece) => cardGrid.appendChild(makeCard(piece, matchedValues.has(String(piece.value)))));
       tray.appendChild(cardGrid);
       gridEl.appendChild(tray);
@@ -607,11 +622,37 @@
       resetBtn.addEventListener("click", () => {
         removeFloatingPuzzlePieces();
         state.generation += 1;
-        studyPuzzleProgress[key] = { matches: {}, matchColors: {}, generation: state.generation };
+        studyPuzzleProgress[key] = { matches: {}, matchColors: {}, generation: state.generation, page: 0 };
         speak("처음부터 다시");
         render();
       });
       actions.appendChild(resetBtn);
+      if (isPagedPuzzle) {
+        if (state.page > 0) {
+          const prevBtn = document.createElement("button");
+          prevBtn.type = "button";
+          prevBtn.className = "btn";
+          prevBtn.textContent = "이전";
+          prevBtn.addEventListener("click", () => {
+            state.page = Math.max(0, state.page - 1);
+            speak("이전");
+            render();
+          });
+          actions.appendChild(prevBtn);
+        }
+        if (state.page < totalPages - 1) {
+          const nextBtn = document.createElement("button");
+          nextBtn.type = "button";
+          nextBtn.className = "btn";
+          nextBtn.textContent = "다음";
+          nextBtn.addEventListener("click", () => {
+            state.page = Math.min(totalPages - 1, state.page + 1);
+            speak("다음");
+            render();
+          });
+          actions.appendChild(nextBtn);
+        }
+      }
       const speakBtn = document.createElement("button");
       speakBtn.type = "button";
       speakBtn.className = "btn main";

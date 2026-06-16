@@ -45,6 +45,7 @@ body {
 .app.app--spotlight {
   justify-content: flex-start;
   gap: 10px;
+  position: relative;
 }
 
 /* 스티커북 말단: 빈 배경 + 선택한 카테고리 그림만 크게 (iPad 한 화면) */
@@ -89,9 +90,53 @@ body {
   background: #fff;
 }
 
+.spotlight-toilet-wrap {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  left: calc(50% + min(30vw, 260px) + 24px);
+  top: calc(50% + 57px);
+  transform: translateY(-50%);
+  width: auto;
+  padding: 0;
+  z-index: 5;
+}
+
+.spotlight-toilet-wrap .quick-toilet-tile {
+  width: min(22vw, 210px);
+  max-width: 210px;
+  min-width: 150px;
+  aspect-ratio: 1 / 1;
+}
+
+.spotlight-toilet-wrap .quick-toilet-tile img {
+  object-fit: contain;
+}
+
 @media (min-width: 768px) {
   .spotlight-button {
     width: min(60vw, 520px); /* 메인 타일(30vw/260)의 2배 */
+  }
+}
+
+@media (max-width: 900px) {
+  .spotlight-toilet-wrap {
+    left: calc(50% + min(42vw, 270px) + 14px);
+  }
+
+  .spotlight-toilet-wrap .quick-toilet-tile {
+    width: min(24vw, 170px);
+    min-width: 120px;
+  }
+}
+
+@media (max-width: 700px) {
+  .spotlight-toilet-wrap {
+    position: static;
+    transform: none;
+    width: 100%;
+    padding-bottom: max(8px, env(safe-area-inset-bottom));
   }
 }
 

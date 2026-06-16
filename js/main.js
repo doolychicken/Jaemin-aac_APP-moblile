@@ -2760,8 +2760,18 @@ function hasVisibleToiletTile() {
   });
 }
 
+function isMainMenuScreenKey() {
+  return currentKey() === "main" || currentKey().startsWith("main_p");
+}
+
 function appendQuickToiletTile(options = {}) {
-  if (currentKey() === "toilet" || hasVisibleToiletTile()) return;
+  if (currentKey() === "toilet" || isMainMenuScreenKey() || hasVisibleToiletTile()) return;
+  if (options.side) {
+    const sideControlCount = gridEl.querySelectorAll(".tile-nav-arrow").length + 1;
+    gridEl.classList.add("grid--side-pager", "grid--side-pager-with-toilet");
+    if (sideControlCount > 1) gridEl.classList.add("grid--side-pager-double");
+    if (sideControlCount > 2) gridEl.classList.add("grid--side-pager-triple");
+  }
   const btn = document.createElement("button");
   btn.className = options.side ? "tile quick-toilet-tile quick-toilet-side" : "tile quick-toilet-tile";
   btn.type = "button";
@@ -2791,7 +2801,7 @@ function renderButtons(items, layout) {
     : null;
   const rawItems = items || [];
   const hasToiletInScreen = rawItems.some((item) => item.label === "화장실");
-  const shouldAddQuickToilet = currentKey() !== "toilet" && !hasToiletInScreen;
+  const shouldAddQuickToilet = currentKey() !== "toilet" && !hasToiletInScreen && !isMainMenuScreenKey();
   const listItems = sideSlotItem ? (items || []).filter((item) => item !== sideSlotItem) : (items || []);
   const manualSideNavItems = usesSideFrame
     ? listItems.filter((item) => item.label === "다음" || item.label === "이전")
@@ -3081,14 +3091,16 @@ function render() {
   } else if (isSpotlight) {
     appMainEl.classList.add("app--spotlight");
     spotlightViewEl.style.display = "flex";
-    gridEl.style.display = "none";
+    gridEl.style.display = "";
     gridEl.innerHTML = "";
+    gridEl.className = "spotlight-toilet-wrap";
     spotlightImgEl.src = screen.spotlight.image;
     spotlightImgEl.alt = screen.spotlight.label || screen.title || "";
     setupImageElement(spotlightImgEl, true);
     const spotLabel = screen.spotlight.label || screen.title || "";
     spotlightBtnEl.setAttribute("aria-label", `${spotLabel}, 눌러서 읽기`);
     spotlightBtnEl.onclick = () => speak(spotLabel);
+    appendQuickToiletTile();
   } else if (isEmpty) {
     appMainEl.classList.add("app--spotlight");
     spotlightViewEl.style.display = "none";
@@ -3104,8 +3116,8 @@ function render() {
     renderButtons(screen.items || [], screen.layout || (isMain ? "main" : "detail"));
   }
 
-  if (gridEl.style.display !== "none") {
-    appendQuickToiletTile();
+  if (gridEl.style.display !== "none" && screen.layout !== "studyPuzzle") {
+    appendQuickToiletTile({ side: gridEl.classList.contains("grid--side-pager") });
   }
 
   requestAnimationFrame(() => prefetchLikelyNextScreens(key));

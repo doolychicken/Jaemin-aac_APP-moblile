@@ -202,13 +202,10 @@ function buildStudyScreensMap() {
     showPlayer: false,
     puzzle: {
       title: "ㄱ부터 ㅎ까지",
+      pageSize: 5,
       completeSpeech: "한글 퍼즐 완료! 정말 잘했어요!",
       slots: hangulLetterItems.map(({ label, speech }) => ({ label, value: label, speech })),
-      pieces: ["?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?", "?"]
-        .map((letter) => {
-          const item = hangulLetterItems.find(({ label }) => label === letter);
-          return { label: letter, value: letter, speech: item?.speech || letter };
-        })
+      pieces: hangulLetterItems.map(({ label, speech }) => ({ label, value: label, speech }))
     }
   };
 
