@@ -1224,7 +1224,7 @@ function renderWeeklySchedule() {
   }
 
   titleEl.textContent = "요일별 스케줄 버전 1";
-  helperEl.textContent = "월요일부터 일요일까지 한 장에 볼 수 있어요. 요일을 누르면 스케줄을 넣거나 볼 수 있어요.";
+  helperEl.textContent = "";
 
   // 최대 행 수 계산 (시간대 레이블 수 vs 실제 활동 수 중 큰 것)
   const maxRows = Math.max(
@@ -1381,11 +1381,10 @@ function renderWeeklyDayPicker() {
   }
 
   titleEl.textContent = "요일별 스케줄 버전 2";
-  helperEl.textContent = "요일을 선택하면 그날 스케줄을 볼 수 있어요.";
+  helperEl.textContent = "";
 
   SCHEDULE_DAYS.forEach((day, di) => {
     const c = WEEKLY_DAY_COLORS[di];
-    const acts = weeklyScheduleData[day] || [];
     const card = document.createElement("button");
     card.type = "button";
     card.className = "weekly-day-card";
@@ -1398,16 +1397,6 @@ function renderWeeklyDayPicker() {
     label.className = "weekly-day-card-title";
     label.textContent = formatScheduleDayLabel(day);
     card.appendChild(label);
-
-    const badge = document.createElement("div");
-    badge.className = "weekly-day-card-badge";
-    badge.textContent = day;
-    card.appendChild(badge);
-
-    const count = document.createElement("div");
-    count.className = "weekly-day-card-count";
-    count.textContent = acts.length ? `${acts.length}개 스케줄` : "스케줄 없음";
-    card.appendChild(count);
 
     card.addEventListener("click", () => {
       speak(formatScheduleDayLabel(day));
@@ -1545,9 +1534,7 @@ function renderWeeklyDaySchedule() {
   const acts = weeklyScheduleData[day] || [];
   const dayLabel = formatScheduleDayLabel(day);
   titleEl.textContent = `${dayLabel} 스케줄`;
-  helperEl.textContent = acts.length > 0
-    ? "활동을 누르면 자세히 볼 수 있어요. 수정 버튼으로 스케줄을 넣을 수 있어요."
-    : "아직 활동이 없어요. 수정 버튼으로 스케줄을 넣어 주세요.";
+  helperEl.textContent = "";
 
   const dateBar = document.createElement("div");
   dateBar.className = "dv-date-bar";
@@ -1566,7 +1553,7 @@ function renderWeeklyDaySchedule() {
   const editDayBtn = document.createElement("button");
   editDayBtn.type = "button";
   editDayBtn.className = "weekly-edit-btn weekly-edit-btn--primary";
-  editDayBtn.textContent = `${dayLabel} 스케줄 넣기/수정`;
+  editDayBtn.textContent = "수정";
   editDayBtn.addEventListener("click", () => {
     speak(`${dayLabel} 스케줄 수정`);
     weeklyEditMode = true;
@@ -1582,7 +1569,7 @@ function renderWeeklyDaySchedule() {
   if (acts.length === 0) {
     const empty = document.createElement("div");
     empty.className = "dv-empty";
-    empty.textContent = "📅 이 요일에 스케줄이 없어요.";
+    empty.textContent = "";
     gridEl.appendChild(empty);
     return;
   }

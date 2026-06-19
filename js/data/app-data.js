@@ -253,7 +253,7 @@ const DATA = {
 
     scheduleWeekly: {
       title: "요일별 스케줄",
-      helper: "원하는 스케줄 화면을 선택하세요.",
+      helper: "",
       hero: [],
       items: [
         { label: "버전 1", nav: "scheduleWeeklyV1", image: "./images/app_schedule.svg" },
@@ -265,7 +265,7 @@ const DATA = {
 
     scheduleWeeklyV1: {
       title: "요일별 스케줄 버전 1",
-      helper: "월요일부터 일요일까지 한 장에 볼 수 있어요.",
+      helper: "",
       hero: [],
       items: [],
       layout: "weeklySchedule",
@@ -274,7 +274,7 @@ const DATA = {
 
     scheduleWeeklyV2: {
       title: "요일별 스케줄 버전 2",
-      helper: "요일을 선택하면 그날 스케줄을 볼 수 있어요.",
+      helper: "",
       hero: [],
       items: [],
       layout: "weeklyDayPicker",
