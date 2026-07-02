@@ -145,8 +145,10 @@ const useDirectYoutubeOpen = true;
 
 const ua = navigator.userAgent || "";
 const isAndroid = /android/i.test(ua);
-const isChromiumAndroid = isAndroid && /Chrome\/|CriOS\//.test(ua) && !/SamsungBrowser|EdgA|OPR\//.test(ua);
-const shouldPreferRemoteTts = isAndroid && (!isChromiumAndroid || /SamsungBrowser|; wv|Firefox|EdgA|OPR\//.test(ua));
+const isKakaoInApp = /KAKAOTALK|KakaoTalk/i.test(ua);
+const isAndroidWebView = /; wv|Version\/\d+\.\d+ Chrome\//.test(ua);
+const isChromiumAndroid = isAndroid && /Chrome\/|CriOS\//.test(ua) && !/SamsungBrowser|EdgA|OPR\//.test(ua) && !isKakaoInApp && !isAndroidWebView;
+const shouldPreferRemoteTts = isAndroid && (!isChromiumAndroid || /SamsungBrowser|Firefox|EdgA|OPR\//.test(ua) || isKakaoInApp || isAndroidWebView);
 let remoteTtsAudio = null;
 let softFullscreenMode = false;
 
