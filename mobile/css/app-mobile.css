@@ -1,0 +1,146 @@
+/* Mobile-only overrides for Galaxy S24+ portrait and similar Android phones. */
+@media (max-width: 430px) {
+  html,
+  body {
+    width: 100%;
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .app {
+    height: 100vh;
+    height: 100dvh;
+    width: 100%;
+    max-width: none;
+    padding:
+      max(8px, env(safe-area-inset-top))
+      max(10px, env(safe-area-inset-right))
+      max(10px, env(safe-area-inset-bottom))
+      max(10px, env(safe-area-inset-left));
+    gap: 7px;
+  }
+
+  @supports (height: 100svh) {
+    .app {
+      height: 100svh;
+    }
+  }
+
+  .topbar {
+    width: 100%;
+    gap: 8px;
+    padding: 8px;
+    align-items: flex-start;
+  }
+
+  .topbar > div:first-child {
+    flex: 1 1 100%;
+  }
+
+  .topbar-btns {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  .title {
+    font-size: 1.05rem;
+    line-height: 1.15;
+  }
+
+  .crumb,
+  .muted {
+    font-size: 0.78rem;
+    line-height: 1.2;
+  }
+
+  .muted {
+    margin: 0;
+  }
+
+  .home-btn,
+  .back-btn,
+  .fullscreen-btn {
+    width: 100%;
+    min-width: 0;
+    min-height: 42px;
+    padding: 8px 6px;
+    border-radius: 8px;
+    font-size: 0.82rem;
+    line-height: 1.1;
+    white-space: normal;
+  }
+
+  .grid,
+  .grid.detail,
+  .grid.media,
+  .grid.home-activity-picker,
+  .grid.grid--mobile-main-menu,
+  .grid:not(.detail):not(.media):not(.grid--side-pager):not(.home-activity-picker):not(.home-runner-grid):not(.outing-summary-tiles) {
+    width: 100% !important;
+    max-width: 100% !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+    justify-content: stretch !important;
+    justify-items: stretch !important;
+    align-content: start !important;
+    gap: 8px !important;
+    padding: 2px 0 max(8px, env(safe-area-inset-bottom)) !important;
+    overflow-x: hidden !important;
+    overflow-y: auto !important;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .grid > .tile,
+  .grid.detail > .tile,
+  .grid.media > .tile,
+  .grid.home-activity-picker > .tile,
+  .grid.grid--mobile-main-menu > .tile,
+  .grid:not(.detail):not(.media):not(.grid--side-pager):not(.home-activity-picker):not(.home-runner-grid):not(.outing-summary-tiles) > .tile {
+    width: 100% !important;
+    max-width: none !important;
+    min-width: 0 !important;
+    min-height: 0 !important;
+    aspect-ratio: 1 / 1 !important;
+    padding: 8px !important;
+  }
+
+  .tile img,
+  .tile-art,
+  .grid.grid--mobile-main-menu > .tile img,
+  .grid.grid--mobile-main-menu > .tile .tile-art {
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0;
+    flex: 1 1 auto;
+  }
+
+  .tile-label,
+  .grid.grid--mobile-main-menu > .tile .tile-label {
+    min-height: 2.05em;
+    font-size: clamp(0.82rem, 3.6vw, 0.98rem);
+    line-height: 1.14;
+    overflow-wrap: anywhere;
+  }
+
+  .tile-nav-arrow,
+  .grid.grid--side-pager > .tile.tile-side-slot,
+  .grid.grid--side-pager > .tile.quick-toilet-side {
+    grid-column: auto !important;
+    grid-row: auto !important;
+    width: 100% !important;
+    max-width: none !important;
+    aspect-ratio: 1 / 1 !important;
+  }
+
+  .date-mode-select,
+  .date-card-board {
+    width: 100% !important;
+    max-width: 100% !important;
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+
+  .spotlight-button {
+    width: min(88vw, 360px);
+  }
+}
